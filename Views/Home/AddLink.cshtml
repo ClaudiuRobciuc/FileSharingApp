@@ -1,0 +1,42 @@
+ @using Microsoft.AspNetCore.Identity 
+@using ConsoleApplication.Models.Entities 
+@inject UserManager<ApplicationUser> UserManager
+ @model ConsoleApplication.Models.ViewModels.ItemViewModel
+
+
+@section styles{
+    <link rel="stylesheet" href="/styles.css" />
+}
+<div class="container">
+    <form asp-controler="Home" asp-action="AddLink" method="POST" class="form-horizontal" style="margin-top:10%" >
+      
+       <div class="form-group">          
+                <label class="col-md-2 control-label">Link</label>
+                <div class="col-md-4">
+                <input class="form-control "  asp-for="@Model.Items.Link">
+            </div>
+        </div>
+        <div class="form-group">          
+                <label asp-for="@Model.Items.Title" class="col-md-2 control-label"></label>
+                <div class="col-md-4">
+                <input class="form-control "  asp-for="@Model.Items.Title">
+            </div>
+        </div>
+         <div class="form-group">          
+                <label asp-for="@Model.Items.Description" class="col-md-2 control-label"></label>
+                <div class="col-md-4">
+                <textarea class="form-control "  asp-for="@Model.Items.Description"></textarea>
+            </div>
+        </div>
+         <div class="form-group">          
+                <label asp-for="@Model.Items.Tags" class="col-md-2 control-label"></label>
+                <div class="col-md-4">
+                <input class="form-control "  asp-for="@Model.Items.Tags">
+            </div>
+        </div>
+        <input type="hidden" class="form-control " value="@UserManager.GetUserName(User)"  asp-for="@Model.Items.Author">
+            <button type="submit" class="btn btn-success">Create</button>
+        </div>
+
+ </form>
+ </div>

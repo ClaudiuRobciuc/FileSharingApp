@@ -1,14 +1,20 @@
 using ConsoleApplication.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ConsoleApplication.Models 
+
+
+namespace ConsoleApplication.Models.ViewModels 
 { 
-    public class MyDbContext : DbContext 
+    public class MyDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Student> Students { get; set; }
-
+        public DbSet<Items> Items {get; set;}
+         public DbSet<Category> Category { get; set; }
+         public DbSet<User> User{get; set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             optionBuilder.UseSqlite("Filename=./mydb.db");

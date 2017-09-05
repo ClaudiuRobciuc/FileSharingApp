@@ -3,36 +3,45 @@ using ConsoleApplication.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ConsoleApplication.Models.ViewModels;
+using System.Diagnostics;
+using ConsoleApplication.Models.Entities;
 
 namespace ConsoleApplication
 {
     public class Startup
     {
 
-        public void ConfigureServices(IServiceCollection servises)
-        {
-            // 3. register you db context so it can be used, and run again --- thats it! 
-            servises.AddDbContext<MyDbContext>();
-            // 4. Now delete your database, and your migrations
-            // do a:
-            //       dotnet ef migrations add first
-            //       dotnet ef database update
-            //       dotnet run
-            servises.AddMvc();
-            servises.AddScoped<IStudentRepository, StudentRepository>();
-           // servises.AddScoped<IStudentRepository, SimpleStudentRepository>();
+        public void ConfigureServices(IServiceCollection services)
+        { 
+            services.AddDbContext<MyDbContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddMvc();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IItemsRepository, ItemsRepository>();
+            services.AddIdentity<ApplicationUser, ApplicationRole>().AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<MyDbContext>();
+
+           
         }
 
-       public void Configure(IApplicationBuilder app, ILoggerFactory logger, MyDbContext context) // 1. add a context parameter
+       public void Configure(IApplicationBuilder app, ILoggerFactory logger, MyDbContext context) 
        {
-           app.UseStaticFiles();
-            // Log to the Console
+            
+            app.UseStaticFiles();
+            app.UseIdentity();
+            app.UseSession();
             logger.AddConsole();
-            app.UseMvcWithDefaultRoute();
-            DbInitializer.Initialize(context);  // 2. add this and run the program
-                                                // You will get a runtime error:
-                                                // No service for type 'ConsoleApplication.Models.MyDbContext' has been registered.
-                                                // 
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=Admin}/{action=Index}");
+            });
+            DbInitializer.Initialize(context);
+            DbInitializer.SeedRolesUsers(app.ApplicationServices);
        }
     }
 }

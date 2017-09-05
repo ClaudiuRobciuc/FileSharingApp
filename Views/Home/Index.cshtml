@@ -1,17 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-    <h1>Hello from index.cshtml</h1>
-    <p> @foreach(var st in ViewBag.Y)
-        {
-            <p>  @st.FirstName  -  @st.LastName   </p>
+@model ConsoleApplication.Models.ViewModels.CategoriesItemsViewModel
+@section styles{
+    <link rel="stylesheet" href="/styles.css" />
+}
+
+<div class= "panel panel-primary" style="position: relative;
+    margin:auto;
+    padding: 10px;
+    float: left;
+    width: 15%;">
+    <div class="panel-heading">Search and Sort</div>
+    <div class="panel-body">
+    <form asp-controler="Home" asp-action="index" method="get" class="form-horizontal" style="margin-top:10%">
+    <fieldset>
+        <legend>Categories</legend>
+        <div style="height:110px; width:160px; overflow:auto">
+            @for(int i=0; i< Model.Categories.Count; i++)
+            {   <div class="col-md-3">
+                 <input type="checkbox" name="format" checked="@Model.Categories[i].Selected" value="@Model.Categories[i].CategoryType">@Model.Categories[i].CategoryType 
+                 </div>
+            } 
+    </div>  
+    </fieldset>
+    
+    <div class="form-actions no-color">
+        <fieldset style="margin-top:3%">
+        <legend>Sort</legend>
+        <p>
+            <input type="radio" name="sortOrder" value="@ViewData["NameSortParm"]">Title
+            <input type="radio" name="sortOrder" value="@ViewData["DateSortParm"]">Date
+            <fieldset style="margin-top:3%">
+            <legend>Search</legend>
+            Find by name/tag: <input id="searchField" type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" style="margin-bottom:5%" class="btn btn-default" /> 
+            <br>    
+            <a asp-action="Index" style="font-size:150%">Back to Full List</a>
+        </p>
+    </div>
+</form>
+</div>
+</div>
+<div class="panel panel-primary" style="overflow:auto; width:1200px; height:800px; margin-left:20px; align-content: center;">
+    <div class="panel-heading">Files</div>
+    <div class="panel-body">
+
+     @foreach(var s in Model.Items)
+        {           
+            <div class="col-md-3 panel panel-default" style="width: 300px;
+    height: 420px;
+    margin-left :5%;
+    border-radius: 12px;">
+    
+    @if(s.Format.Equals("Link"))
+                {
+                    <div class="panel-heading" style="font-size:130%; font-weight:bold"><a href=@s.Link>@s.Title</a> </div>
+                }
+                else
+                {
+                    <div class="panel-heading" style="font-size:130%; font-weight:bold">@s.Title</div>
+                }
+                <div class="panel-body">
+                <div class="row">
+                    <div class="field">
+                        <div class="row">
+                        <p>Added/Modified</p>    
+                        @s.date
+                        </div>
+                    </div>
+                <textarea readonly class="description" style="font-size:100%">@s.Description</textarea>
+
+                <div style="margin-bottom:15%">
+                    <a class="btn btn-primary btn-sm col-xs-3 col-xs-offset-1" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
+                    @if(!s.Format.Equals("Link"))
+                    {
+                        <a style="float:right; margin-right:8%" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Home" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                    }
+                    else
+                    {
+                        <a href=@s.Link style="float:right; margin-right:8%" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" >View</a>
+                    }
+                </div>
+                <div style="height:70px">Added/Modified by: @s.Author</div>
+                <div>Tags: @s.Tags</div>
+                    
+            </div>
+            </div>
+            </div>
         }
-     </p>
-    </body>
-</html>
+    </div>
+      
+
+</div>

@@ -1,0 +1,12 @@
+@model ApplicationUser
+@using ConsoleApplication.Models.Entities 
+   
+<form asp-action="DeleteUser" method="POST" role="form"> 
+    <input class="form-control" type="hidden" asp-for="Id">
+    <div class="modal-body form-horizontal"> 
+        Are you want to delete @Model.Name? 
+    </div> 
+    </div>
+            <button type="submit" class="btn btn-success">Delete</button>
+        </div>
+</form>

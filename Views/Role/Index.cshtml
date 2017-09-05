@@ -1,0 +1,42 @@
+@model IEnumerable<Role> 
+@using ConsoleApplication.Models 
+   
+<div class="top-buffer"></div> 
+<div class="panel panel-primary"> 
+    <div class="panel-heading panel-head">Application Roles</div> 
+    <div class="panel-body"> 
+        <div class="btn-group"> 
+            <a id="createRoleModal" data-toggle="modal" asp-action="AddRole" data-target="#modal-action-application-role" class="btn btn-primary"> 
+                <i class="glyphicon glyphicon-plus"></i>  Add Role 
+            </a> 
+        </div> 
+        <div class="top-buffer"></div> 
+        <table class="table table-bordered table-striped table-condensed"> 
+            <thead> 
+                <tr> 
+                    <th>Name</th>                     
+                    <th>Action</th> 
+                </tr> 
+            </thead> 
+            <tbody> 
+                @foreach (var item in Model) 
+                { 
+                    <tr> 
+                        <td>@item.RoleName</td>                                             
+                        <td>                             
+                            <a id="addEditApplicationRoleModal" data-toggle="modal" asp-action="AddRole" asp-route-id="@item.Id" data-target="#modal-action-application-role" 
+                               class="btn btn-info"> 
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit 
+                            </a> 
+                        </td> 
+                    </tr> 
+                } 
+            </tbody> 
+        </table> 
+    </div> 
+</div> 
+      
+@section scripts 
+{ 
+    <script src="~/js/application-role-index.js" asp-append-version="true"></script> 
+}
