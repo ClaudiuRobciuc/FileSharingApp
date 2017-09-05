@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1/",
-    "signature": "80defb279a897128ac0cefeee48919b9aaa34174"
+    "signature": "30c0896e9b6242e3b7e2e43fb3b0bdb62caada3f"
   },
   "compilationOptions": {
     "defines": [
@@ -19,6 +19,7 @@
         "dependencies": {
           "Microsoft.NETCore.App": "1.1.0",
           "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
+          "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
           "Microsoft.AspNetCore.Mvc": "1.1.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "1.1.1",
@@ -255,6 +256,17 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Http.Features.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.HttpOverrides/1.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Extensions": "1.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.1",
+          "Microsoft.Extensions.Options": "1.1.1",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.HttpOverrides.dll": {}
         }
       },
       "Microsoft.AspNetCore.Identity/1.1.0": {
@@ -509,6 +521,21 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Routing.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Server.IISIntegration/1.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0",
+          "Microsoft.AspNetCore.Http": "1.1.0",
+          "Microsoft.AspNetCore.Http.Extensions": "1.1.0",
+          "Microsoft.AspNetCore.HttpOverrides": "1.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.1",
+          "Microsoft.Extensions.Options": "1.1.1",
+          "NETStandard.Library": "1.6.1",
+          "System.Security.Principal.Windows": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Server.IISIntegration.dll": {}
         }
       },
       "Microsoft.AspNetCore.Server.Kestrel/1.1.0": {
@@ -2574,6 +2601,7 @@
         "dependencies": {
           "Microsoft.NETCore.App": "1.1.0",
           "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
+          "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
           "Microsoft.AspNetCore.Mvc": "1.1.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "1.1.1",
@@ -2810,6 +2838,17 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Http.Features.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.HttpOverrides/1.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Extensions": "1.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.1",
+          "Microsoft.Extensions.Options": "1.1.1",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.HttpOverrides.dll": {}
         }
       },
       "Microsoft.AspNetCore.Identity/1.1.0": {
@@ -3064,6 +3103,21 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Routing.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Server.IISIntegration/1.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0",
+          "Microsoft.AspNetCore.Http": "1.1.0",
+          "Microsoft.AspNetCore.Http.Extensions": "1.1.0",
+          "Microsoft.AspNetCore.HttpOverrides": "1.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.1",
+          "Microsoft.Extensions.Options": "1.1.1",
+          "NETStandard.Library": "1.6.1",
+          "System.Security.Principal.Windows": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Server.IISIntegration.dll": {}
         }
       },
       "Microsoft.AspNetCore.Server.Kestrel/1.1.0": {
@@ -5139,6 +5193,11 @@
       "serviceable": true,
       "sha512": "sha512-zH5Qi6uJaojL+aQ/5QIt7MJ1I4Zimwc1ti6+luEHthc1xq6nevChup0lYCcthh47lrRAJwybqEg6g+c+TG3MyQ=="
     },
+    "Microsoft.AspNetCore.HttpOverrides/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nvNbiYTQZhOWIT9zjhbzIMJTRwcJXGx8DqzMRKcrlGeRNG9ysa3M/hEBrxAp8NKIJeVtnp/n46MhLgmx0CLJWw=="
+    },
     "Microsoft.AspNetCore.Identity/1.1.0": {
       "type": "package",
       "serviceable": true,
@@ -5243,6 +5302,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-/kaFZW4AjHPOIMnqXHGl/KdHxUGOVm9z/U0t3JtKmK5OFnsfuLsUIH2QN2PtXNeOm1eh5Ux2XEyg6YRBgXfPgA=="
+    },
+    "Microsoft.AspNetCore.Server.IISIntegration/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z/K/RsUUh6Cfc8W+uP0IeXu8NJP/7li+E3ep+u4t9McrDUdJMrfgfBSPC5SrrUkTZjrt9udQS6JLrB6v3b8pag=="
     },
     "Microsoft.AspNetCore.Server.Kestrel/1.1.0": {
       "type": "package",
