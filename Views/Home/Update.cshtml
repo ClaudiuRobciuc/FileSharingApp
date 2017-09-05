@@ -8,10 +8,11 @@
 @section styles{
     <link rel="stylesheet" href="/styles.css" />
 }
-<div class="container">
+<div class="panel panel-primary">
     <form asp-controler="Home" asp-action="Update" method="POST" class="form-horizontal" style="margin-top:10%" >
         <input class="form-control" type="Hidden" asp-for="@Model.Items.ItemID">
-      
+      <div class="panel-header">Update</div>
+      <div class="panel-body">
        <div class="form-group">          
                 <label asp-for="@Model.Items.Title" class="col-md-2 control-label"></label>
                 <div class="col-md-4">
@@ -48,6 +49,6 @@
          <input type="hidden" class="form-control " value="@UserManager.GetUserName(User)"  asp-for="@Model.Items.Author">
             <button type="submit" class="btn btn-success">Edit</button>
         </div>
-        
+    </div>
     </form>
 </div>
