@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using  Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace ConsoleApplication
 {
@@ -13,8 +14,8 @@ namespace ConsoleApplication
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:5000")
                 .Build();
             host.Run();
         }
