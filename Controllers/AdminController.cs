@@ -200,9 +200,9 @@ namespace ConsoleApplication.Controllers
             Items s = itemsRepository.Get(id);
             String format= s.Format;
             if(!format.Equals("Link")&&(!String.IsNullOrEmpty(s.Path)))
-            {
-                System.IO.File.Delete(s.Path);
+            {         
                 
+                System.IO.File.Delete(s.Path);   
             }
             itemsRepository.Delete(s);
             

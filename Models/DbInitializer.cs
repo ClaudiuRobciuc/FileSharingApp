@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApplication.Models.ViewModels 
 {
@@ -25,14 +26,15 @@ namespace ConsoleApplication.Models.ViewModels
         public static void Initialize(MyDbContext context) 
         {
             
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
+            context.Database.Migrate();
     
-            
             if (context.Items.Any())
             {
                 return;   // DB has been seeded
             }
         
+
             ApplicationRole applicationRole = new ApplicationRole {
                 CreatedDate = DateTime.UtcNow
             };

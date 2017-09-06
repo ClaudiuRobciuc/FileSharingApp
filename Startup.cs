@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using ConsoleApplication.Models.ViewModels;
 using System.Diagnostics;
 using ConsoleApplication.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApplication
 {
@@ -39,6 +40,7 @@ namespace ConsoleApplication
                 template: "{controller=Home}/{action=Index}");
             });
             DbInitializer.Initialize(context);
+            
             DbInitializer.SeedRolesUsers(app.ApplicationServices);
        }
     }
