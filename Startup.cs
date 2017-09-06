@@ -22,8 +22,6 @@ namespace ConsoleApplication
             services.AddScoped<IItemsRepository, ItemsRepository>();
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddDefaultTokenProviders()
             .AddEntityFrameworkStores<MyDbContext>();
-
-           
         }
 
        public void Configure(IApplicationBuilder app, ILoggerFactory logger, MyDbContext context) 
@@ -38,7 +36,7 @@ namespace ConsoleApplication
             {
                 routes.MapRoute(
                 name: "default",
-                template: "{controller=Admin}/{action=Index}");
+                template: "{controller=Home}/{action=Index}");
             });
             DbInitializer.Initialize(context);
             DbInitializer.SeedRolesUsers(app.ApplicationServices);

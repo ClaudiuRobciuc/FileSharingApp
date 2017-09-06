@@ -24,7 +24,7 @@
 
 <body>
     
-    <nav class="navbar navbar-inverse navbar-fixed-top navbar-light bg-faded" style="background-color:white">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-light bg-faded" >
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,7 +43,7 @@
                 <form asp-area="" asp-controller="Account" asp-action="SignOff" method="post" id="logoutForm" class="navbar-right"> 
                 <ul class="nav navbar-nav navbar-right"> 
                 <li> 
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a> 
+                <a asp-area="" asp-controller="Admin" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a> 
                     </li> 
                 <li> 
                     <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button> 
