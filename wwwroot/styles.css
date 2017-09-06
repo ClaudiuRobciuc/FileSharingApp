@@ -73,8 +73,8 @@ div.itemDisplay{
     padding: 10px;
     width: 300px;
     height: 440px;
-    margin-right:5%;
-    margin-top:3%;
+    margin-right:5vh;
+    margin-top:3vh;
     align-content: center;
     text-align: center;
 }
@@ -84,9 +84,9 @@ div.field{
     border-radius: 10px;
     margin: auto;
     padding: 10px;
-    margin: 3%;
-    width: 250px;
-    height:75px;
+    margin: 3vh;
+    width: 25vh;
+    height:9vh;
     text-align: center;
     font-size: 130%;
     
@@ -99,8 +99,8 @@ textarea.description{
     margin: auto;
     padding: 10px;
     margin: 3%;
-    width: 250px;
-    height:75px;
+    width: 30vh;
+    height:9vh;
     text-align: center;
     font-size: 130%;
 }

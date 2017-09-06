@@ -72,7 +72,7 @@
                     </div>
                 <textarea readonly class="description" style="font-size:100%">@s.Description</textarea>
 
-                <div class="hbox" style="margin-bottom:5vh">
+                <div class="hbox" style="margin-bottom:1vh">
                     <a class="btn btn-primary btn-sm col-xs-2 col-xs-offset-1" style="width:10vh" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
                     @if(!s.Format.Equals("Link"))
                     {
@@ -83,7 +83,7 @@
                         <a target="_blank" href=@s.Link style="float:right; margin-right:4vh; width:10vh" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-2" >View</a>
                     }
                 </div>
-                <div style="height:5vh">Added/Modified by: @s.Author</div>
+                <div style="height:3vh">Added/Modified by: @s.Author</div>
                 <div>Tags: @s.Tags</div>
                     
             </div>
