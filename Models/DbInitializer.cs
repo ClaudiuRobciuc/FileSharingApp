@@ -33,27 +33,6 @@ namespace ConsoleApplication.Models.ViewModels
                 return;   // DB has been seeded
             }
         
-            List<Items> items = new List<Items>()
-            {
-                
-            new Items{Title="Aici", Description="Descr", Tags="tag", Format=".txt", Path="/Files/Aici.txt"}
-           
-            };
-            foreach (Items s in items)
-            {
-                context.Items.Add(s);
-            } 
-
-            var category = new Category[]
-            {
-            
-            new Category{CategoryType = ".txt"},
-            };
-
-            foreach (Category c in category)
-            {
-                context.Category.Add(c);
-            }
             ApplicationRole applicationRole = new ApplicationRole {
                 CreatedDate = DateTime.UtcNow
             };

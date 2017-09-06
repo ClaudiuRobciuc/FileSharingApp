@@ -8,7 +8,7 @@ using ConsoleApplication.Models.ViewModels;
 namespace FileSharingApp.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20170904140758_first")]
+    [Migration("20170906105151_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

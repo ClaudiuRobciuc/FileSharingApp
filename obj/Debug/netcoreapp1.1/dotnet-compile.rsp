@@ -211,8 +211,8 @@ C:\Users\ClaudiuRBC\Documents\FileSharingApp\Controllers\AdminController.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Controllers\HomeController.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Controllers\RoleController.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Controllers\UserController.cs
-C:\Users\ClaudiuRBC\Documents\FileSharingApp\Migrations\20170904140758_first.cs
-C:\Users\ClaudiuRBC\Documents\FileSharingApp\Migrations\20170904140758_first.Designer.cs
+C:\Users\ClaudiuRBC\Documents\FileSharingApp\Migrations\20170906105151_first.cs
+C:\Users\ClaudiuRBC\Documents\FileSharingApp\Migrations\20170906105151_first.Designer.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Migrations\MyDbContextModelSnapshot.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\DbInitializer.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\MyDbContext.cs
