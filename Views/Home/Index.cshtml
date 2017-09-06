@@ -2,22 +2,21 @@
 @section styles{
     <link rel="stylesheet" href="/styles.css" />
 }
-<div class="col-md-2 col-xs-4">
+<div class="col-xs-2">
 <div class= "panel panel-primary panel-shadow" style="position: relative;
     margin:auto;
-    padding: 10px;
+    padding: 2hv;
     float: left;
-    
-    margin-left:2%;
-    margin-right:4%">
+    margin-left:2vh;
+    margin-right:4vh">
     <div class="panel-heading">Search and Sort</div>
     <div class="panel-body">
-    <form asp-controler="Home" asp-action="index" method="get" class="form-horizontal" style="margin-top:10%">
+    <form asp-controler="Home" asp-action="index" method="get" class="form-horizontal" style="margin-top:10vh">
     <fieldset>
         <legend>Categories</legend>
         <div style="max-height:10vh; width:20vh; overflow:auto">
             @for(int i=0; i< Model.Categories.Count; i++)
-            {   <div class="col-md-3">
+            {   <div class="col-xs-3">
                  <input type="checkbox" name="format" checked="@Model.Categories[i].Selected" value="@Model.Categories[i].CategoryType">@Model.Categories[i].CategoryType 
                  </div>
             } 
@@ -25,15 +24,15 @@
     </fieldset>
     
     <div class="form-actions no-color">
-        <fieldset style="margin-top:3%">
+        <fieldset style="margin-top:3vh">
         <legend>Sort</legend>
         <p>
             <input type="radio" name="sortOrder" value="@ViewData["NameSortParm"]">Title
             <input type="radio" name="sortOrder" value="@ViewData["DateSortParm"]">Date
-            <fieldset style="margin-top:3%">
+            <fieldset style="margin-top:3vh">
             <legend>Search</legend>
             Find by name/tag: <input id="searchField" type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" style="margin-bottom:5%" class="btn btn-default" /> 
+            <input type="submit" value="Search" style="margin-bottom:5vh" class="btn btn-default" /> 
             <br>    
             <a asp-action="Index" style="font-size:150%">Back to Full List</a>
         </p>
@@ -42,17 +41,17 @@
 </div>
 </div>
 </div>
-<div class="col-md-9 col-xs-8">
-<div class="panel panel-primary panel-shadow " style="overflow:auto; max-height:80vh;   margin-left:20px; align-content: center;  ">
+<div class="col-xs-8">
+<div class="panel panel-primary panel-shadow " style="overflow:auto; max-height:80vh;   margin-left:2vh; align-content: center;  ">
     <div class="panel-heading">Files</div>
     <div class="panel-body">
 
      @foreach(var s in Model.Items)
         {           
-            <div class="col-md-3 panel panel-info panel-shadow" style="width: 300px;
-    height: 420px;
-    margin-left :5%;
-    border-radius: 20px;
+            <div class="col-xs-3 panel panel-info panel-shadow" style="width: 35vh;
+    height: 45vh;
+    margin-left :5vh;
+    border-radius: 1.5vh;
     border-color:black;">
     
     @if(s.Format.Equals("Link"))
@@ -73,18 +72,18 @@
                     </div>
                 <textarea readonly class="description" style="font-size:100%">@s.Description</textarea>
 
-                <div class="hbox" style="margin-bottom:15%">
-                    <a class="btn btn-primary btn-sm col-xs-3 col-xs-offset-1" style="width:100px" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
+                <div class="hbox" style="margin-bottom:5vh">
+                    <a class="btn btn-primary btn-sm col-xs-2 col-xs-offset-1" style="width:10vh" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
                     @if(!s.Format.Equals("Link"))
                     {
-                        <a style="float:right; margin-right:8%; width:100px" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Home" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                        <a style="float:right; margin-right:4vh; width:10vh" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-2" asp-controller="Home" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
                     }
                     else
                     {
-                        <a href=@s.Link style="float:right; margin-right:8%; width:100px" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" >View</a>
+                        <a target="_blank" href=@s.Link style="float:right; margin-right:4vh; width:10vh" class="btn btn-danger btn-sm col-xs-3 col-xs-offset-2" >View</a>
                     }
                 </div>
-                <div style="height:70px">Added/Modified by: @s.Author</div>
+                <div style="height:5vh">Added/Modified by: @s.Author</div>
                 <div>Tags: @s.Tags</div>
                     
             </div>
@@ -94,4 +93,4 @@
     </div>
 </div>
 </div>
-<div class="col-md-3 col-xs-4"></div>
+<div class="col-xs-2"></div>
