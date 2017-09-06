@@ -17,26 +17,25 @@
       
       <div class="panel-body" style="align-content:center">
        <div class="form-group">          
-                <label asp-for="@Model.Items.Title" class="col-md-2 control-label"></label>
-                <div class="col-md-4">
-                <input class="form-control "  asp-for="@Model.Items.Title">
-            </div>
+                
+                <input type="hidden" class="form-control "  asp-for="@Model.Items.Title">
+            
         </div>
          <div class="form-group">          
                 <label asp-for="@Model.Items.Description" class="col-md-2 control-label"></label>
                 <div class="col-md-4">
-                <textarea class="form-control "  asp-for="@Model.Items.Description"></textarea>
+                <textarea autocomplete="off" class="form-control "  asp-for="@Model.Items.Description"></textarea>
             </div>
         </div>
          <div class="form-group">          
                 <label asp-for="@Model.Items.Tags" class="col-md-2 control-label"></label>
                 <div class="col-md-4">
-                <input class="form-control "  asp-for="@Model.Items.Tags">
+                <input autocomplete="off" class="form-control "  asp-for="@Model.Items.Tags">
             </div>
         </div>
         <div class="form-group">          
                 <div class="col-md-4">
-                <input type="hidden" class="form-control "  asp-for="@Model.Items.Format">
+                <input autocomplete="off" type="hidden" class="form-control "  asp-for="@Model.Items.Format">
             </div>
         </div>
         <div class="form-group">             
