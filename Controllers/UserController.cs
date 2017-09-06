@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConsoleApplication.Controllers
 {
-    
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager; 

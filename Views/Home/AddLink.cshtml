@@ -7,11 +7,12 @@
 @section styles{
     <link rel="stylesheet" href="/styles.css" />
 }
-<div class="container">
+<div class="col-md-3"></div>
+<div class="container col-md-6">
     <div class="panel panel-default panel-shadow" style="width:80%">
         <div class="panel-heading">Add Link</div>
     <form asp-controler="Home" asp-action="AddLink" method="POST" class="form-horizontal" style="margin-top:10%" >
-      <div class="panel-body">
+      <div class="panel-body" style="margin-left:10%">
        <div class="form-group">          
                 <label class="col-md-2 control-label">Link</label>
                 <div class="col-md-4">
@@ -44,3 +45,4 @@
  </form>
  </div>
  </div>
+ <div class="col-md-3"></div>

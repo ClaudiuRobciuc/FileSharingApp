@@ -2,12 +2,12 @@
 @section styles{
     <link rel="stylesheet" href="/styles.css" />
 }
-
+<div class="col-md-2">
 <div class= "panel panel-primary panel-shadow" style="position: relative;
     margin:auto;
     padding: 10px;
     float: left;
-    width: 15%;
+    
     margin-left:2%;
     margin-right:4%">
     <div class="panel-heading">Search and Sort</div>
@@ -21,7 +21,7 @@
                  <input type="checkbox" name="format" checked="@Model.Categories[i].Selected" value="@Model.Categories[i].CategoryType">@Model.Categories[i].CategoryType 
                  </div>
             } 
-    </div>  
+        </div>  
     </fieldset>
     
     <div class="form-actions no-color">
@@ -41,13 +41,15 @@
 </form>
 </div>
 </div>
-<div class="panel panel-primary panel-shadow" style="overflow:auto; width:1200px; height:800px; margin-left:20px; align-content: center;  ">
+</div>
+<div class="col-md-6">
+<div class="panel panel-primary panel-shadow " style="overflow:auto; width:1200px; height:800px; margin-left:20px; align-content: center;  ">
     <div class="panel-heading">Files</div>
     <div class="panel-body">
 
      @foreach(var s in Model.Items)
         {           
-            <div class="col-md-3 panel panel-default panel-shadow" style="width: 300px;
+            <div class="col-md-3 panel panel-info panel-shadow" style="width: 300px;
     height: 420px;
     margin-left :5%;
     border-radius: 20px;
@@ -90,6 +92,6 @@
             </div>
         }
     </div>
-      
-
 </div>
+</div>
+<div class="col-md-3"></div>

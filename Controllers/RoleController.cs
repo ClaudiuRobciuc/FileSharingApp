@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConsoleApplication.Controllers
 {
-   
+   [Authorize]
     public class RoleController : Controller
     {
         private readonly RoleManager<ApplicationRole> roleManager; 
