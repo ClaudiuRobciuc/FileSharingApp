@@ -15,7 +15,7 @@
     <form asp-controler="Home" asp-action="index" method="get" class="form-horizontal" style="margin-top:10%">
     <fieldset>
         <legend>Categories</legend>
-        <div style="height:110px; width:160px; overflow:auto">
+        <div style="max-height:10vh; width:20vh; overflow:auto">
             @for(int i=0; i< Model.Categories.Count; i++)
             {   <div class="col-md-3">
                  <input type="checkbox" name="format" checked="@Model.Categories[i].Selected" value="@Model.Categories[i].CategoryType">@Model.Categories[i].CategoryType 
@@ -42,8 +42,8 @@
 </div>
 </div>
 </div>
-<div class="col-md-6 col-xs-8">
-<div class="panel panel-primary panel-shadow " style="overflow:auto; width:1200px; height:800px; margin-left:20px; align-content: center;  ">
+<div class="col-md-9 col-xs-8">
+<div class="panel panel-primary panel-shadow " style="overflow:auto; max-height:80vh;   margin-left:20px; align-content: center;  ">
     <div class="panel-heading">Files</div>
     <div class="panel-body">
 
