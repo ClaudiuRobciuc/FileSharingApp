@@ -122,13 +122,16 @@ textarea.description{
 
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 700px) {
     
        body { 
           font-size: 0.9em; 
        }
        fieldset{
            font-size:0.8em;
+       }
+       legend{
+           font-size:2.4em;
        }
        #searchField{
            font-size: 1em;
@@ -137,8 +140,12 @@ textarea.description{
            font-size: 0.8em;
        }
        .panel-mobile{
-        width: 40vh;
-        height: 65vh;
+        width: 40vw;
+        height: 53vh;
+       }
+       .panel-left-mobile{
+        width: 35vw;
+        height: 60vh;
        }
        div.field-mobile{
         display: inline-block;
@@ -147,8 +154,8 @@ textarea.description{
         margin: auto;
         padding: 10px;
         margin: 2%;
-        width: 30vw;
-        height: 15vh;
+        width: 32vw;
+        height: 10%;
         text-align: center;
         font-size: 120%;
     }
@@ -165,7 +172,7 @@ textarea.description{
         margin: auto;
         padding: 10px;
         margin: 2%;
-        width: 30vw;
+        width: 32vw;
         height: 9vh;
         text-align: center;
         font-size: 120%;
