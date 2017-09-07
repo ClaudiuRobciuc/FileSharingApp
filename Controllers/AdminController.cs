@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ConsoleApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
        
