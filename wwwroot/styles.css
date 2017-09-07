@@ -108,3 +108,61 @@ textarea.description{
 .panel-shadow{
     box-shadow: 0 8px 16px 0 rgba(0, 30, 30, 0.2), 0 6px 60px 0 rgba(80, 0, 100, 0.19);
 }
+.panel-mobile{
+    width: 35vh;
+    height: 50vh;
+   }
+   a.btn-mobile{
+    width: 10vw;
+}
+
+@media only screen and (max-width: 420px) {
+    
+       body { 
+          font-size: 0.9em; 
+       }
+       fieldset{
+           font-size:0.8em;
+       }
+       #searchField{
+           font-size: 1em;
+       }
+       #btnMobile{
+           font-size: 0.8em;
+       }
+       .panel-mobile{
+        width: 40vh;
+        height: 65vh;
+       }
+       div.field-mobile{
+        display: inline-block;
+        border: 2px solid rgba(67, 178, 213, 0.66);
+        border-radius: 10px;
+        margin: auto;
+        padding: 10px;
+        margin: 2%;
+        width: 30vw;
+        height: 15vh;
+        text-align: center;
+        font-size: 120%;
+    }
+
+    a.btn-mobile{
+        font-size: 1em;
+        width: 15vw;
+    }
+    
+    textarea.description-mobile{
+        display: inline-block;
+        border: 2px solid rgba(67, 178, 213, 0.66);
+        border-radius: 10px;
+        margin: auto;
+        padding: 10px;
+        margin: 2%;
+        width: 30vw;
+        height: 9vh;
+        text-align: center;
+        font-size: 120%;
+    }
+    
+    }
