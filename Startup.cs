@@ -21,7 +21,14 @@ namespace ConsoleApplication
             services.AddMvc();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IItemsRepository, ItemsRepository>();
-            services.AddIdentity<ApplicationUser, ApplicationRole>().AddDefaultTokenProviders()
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            }).AddDefaultTokenProviders()
             .AddEntityFrameworkStores<MyDbContext>();
         }
 
@@ -39,6 +46,7 @@ namespace ConsoleApplication
                 name: "default",
                 template: "{controller=Home}/{action=Index}");
             });
+            
             DbInitializer.Initialize(context);
             
             DbInitializer.SeedRolesUsers(app.ApplicationServices);

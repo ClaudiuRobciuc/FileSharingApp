@@ -8,14 +8,14 @@
     padding: 2hv;
     float: left;
     margin-left:2%;
-    margin-right:4vh;
+    margin-right:6vh;
     max-height:92vh">
     <div class="panel-heading">Search and Sort</div>
     <div class="panel-body">
     <form asp-controler="Home" asp-action="index" method="get" class="form-horizontal" style="margin-top:3vh">
     <fieldset>
         <legend>Categories</legend>
-        <div style="max-height:10vh; width:20vh; overflow:auto">
+        <div class="format-checkbox" >
             @for(int i=0; i< Model.Categories.Count; i++)
             {   <div class="col-xs-3">
                  <input type="checkbox" name="format" checked="@Model.Categories[i].Selected" value="@Model.Categories[i].CategoryType">@Model.Categories[i].CategoryType 
@@ -43,7 +43,7 @@
 </div>
 </div>
 <div class="col-md-8 col-xs-8">
-<div class="panel panel-primary panel-shadow " style="overflow:auto; max-height:80vh;   margin-left:2vh; align-content: center;  ">
+<div class="panel panel-primary panel-shadow panel-primary-mobile " style="overflow:auto; max-height:80vh;   margin-left:2vh; align-content: center;  ">
     <div class="panel-heading">Files</div>
     <div class="panel-body">
 
@@ -57,13 +57,13 @@
     
     @if(s.Format.Equals("Link"))
                 {
-                    <div class="panel-heading" style="font-size:130%; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a> </div>
+                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a> </div>
                 }
                 else
                 {
-                    <div class="panel-heading" style="font-size:130%; font-weight:bold">@s.Title</div>
+                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold">@s.Title</div>
                 }
-                <div class="panel-body">
+                <div class="panel-body" style="max-height: 30vh">
                 <div class="row">
                     <div class="field field-mobile">
                         <div class="row">
@@ -73,17 +73,17 @@
                     </div>
                 <textarea readonly class="description description-mobile" style="font-size:100%">@s.Description</textarea>
 
-                <div class="hbox" style="margin-bottom:5vh">
-                    <a class="btn btn-primary btn-sm btn-mobile col-xs-2 col-xs-offset-1" style="width:10vw" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
+                
+                    <a class="btn btn-primary btn-sm btn-mobile" style="margin-left:1.3vw; marign-right:3vw" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
                     @if(!s.Format.Equals("Link"))
                     {
-                        <a style="float:right; margin-right:4vh;" class="btn btn-danger btn-mobile btn-sm col-xs-3 col-xs-offset-2" asp-controller="Home" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                        <a style="float:right; margin-right:4vh;" class="btn btn-danger btn-mobile " asp-controller="Home" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
                     }
                     else
                     {
-                        <a target="_blank" href=@s.Link style="float:right; margin-right:4vh; " class="btn btn-danger btn-sm btn-mobile col-xs-3 col-xs-offset-2" >View</a>
+                        <a target="_blank" href=@s.Link style="float:right; margin-right:4vh; width:5vw " class="btn btn-danger btn-sm btn-mobile" >View</a>
                     }
-                </div>
+                
                 <div style="height:5vh">Added/Modified by: @s.Author</div>
                 <div>Tags: @s.Tags</div>
                     
@@ -94,4 +94,3 @@
     </div>
 </div>
 </div>
-<div class="col-md-6 col-xs-2"></div>
