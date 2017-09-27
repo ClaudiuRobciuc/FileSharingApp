@@ -1,7 +1,7 @@
  @using Microsoft.AspNetCore.Identity 
 @using ConsoleApplication.Models.Entities 
 @inject UserManager<ApplicationUser> UserManager
- @model ConsoleApplication.Models.ViewModels.ItemViewModel
+ @model ConsoleApplication.Models.ViewModels.ItemViewModelDB
 
 
 @section styles{
@@ -11,7 +11,7 @@
 <div class="container col-md-6">
     <div class="panel panel-default panel-shadow" style="width:80%">
         <div class="panel-heading">Add Link</div>
-    <form asp-controler="Home" asp-action="AddLink" method="POST" class="form-horizontal" style="margin-top:10%" >
+    <form asp-controller="DropBox" asp-action="AddLink" method="POST" class="form-horizontal" style="margin-top:10%" >
       <div class="panel-body" style="margin-left:10%">
        <div class="form-group">          
                 <label class="col-md-2 control-label">Link</label>

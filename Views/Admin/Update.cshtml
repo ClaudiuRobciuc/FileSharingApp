@@ -39,6 +39,7 @@
                 <input type="hidden" class="form-control "  asp-for="@Model.Items.date">
             </div>
         </div>
+        
          <input type="hidden" class="form-control " value="@UserManager.GetUserName(User)"  asp-for="@Model.Items.Author">
             <button type="submit" class="btn btn-success">Edit</button>
         </div>

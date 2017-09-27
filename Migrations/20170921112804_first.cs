@@ -66,6 +66,40 @@ namespace FileSharingApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DropBoxCategory",
+                columns: table => new
+                {
+                    CategoryID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CategoryType = table.Column<string>(nullable: false),
+                    Selected = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DropBoxCategory", x => x.CategoryID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DropBoxItems",
+                columns: table => new
+                {
+                    ItemID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Author = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Format = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
+                    Tags = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: false),
+                    date = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DropBoxItems", x => x.ItemID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
@@ -94,7 +128,8 @@ namespace FileSharingApp.Migrations
                     Email = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(nullable: true),
+                    dropBoxApi = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -243,6 +278,12 @@ namespace FileSharingApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "DropBoxCategory");
+
+            migrationBuilder.DropTable(
+                name: "DropBoxItems");
 
             migrationBuilder.DropTable(
                 name: "Items");

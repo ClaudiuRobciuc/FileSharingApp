@@ -1,0 +1,70 @@
+@model ConsoleApplication.Models.ViewModels.CategoriesItemsViewModelDB
+@section styles{
+    <link rel="stylesheet" href="/stylesAdmin.css" />
+}
+
+<div class= "left-panel">
+    <form asp-controler="Admin" asp-action="index" method="get" class="form-horizontal" style="margin-top:10%">
+    <fieldset>
+        <legend>Choose the format</legend>
+        
+            @for(int i=0; i< Model.Categories.Count; i++)
+            {   <div>
+                 <input type="checkbox" name="format" checked="@Model.Categories[i].Selected" value="@Model.Categories[i].CategoryType">@Model.Categories[i].CategoryType 
+                 </div>
+            }   
+    </fieldset>
+    
+</div>
+
+    <div class="form-actions no-color">
+        <p>
+            <input type="radio" name="sortOrder" value="@ViewData["NameSortParm"]">Title
+            <input type="radio" name="sortOrder" value="@ViewData["DescriptionSortParm"]">Description
+            <input type="radio" name="sortOrder" value="@ViewData["TagsSortParm"]">Tags
+            <input type="radio" name="sortOrder" value="@ViewData["FormatSortParm"]">Format
+            <input type="radio" name="sortOrder" value="@ViewData["DateSortParm"]">Date
+            Find by name: <input id="searchField" type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<div class= "adminContainer">
+<table class="table table-striped table-hover table-responsive" style="text-align: left"> 
+        <thead class="row">
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Title</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParm"]">Description</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["TagsSortParm"]">Tags</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["FormatSortParm"]">Format</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Date</a></th>
+            <th><span class="col-xs-offset-1">Action<span></th>
+        </thead>
+     @foreach(var s in Model.Items)
+        {           
+            <tr class = "rowInfo"> 
+                @if(s.Format.Equals("Link"))
+                {
+                    <td><a href=@s.Link>@s.Title</td>
+                }
+                else
+                {
+                    <td>@s.Title</td>
+                }
+                <td style="overflow-y:hidden; max-width:50px">@s.Description</td>
+                <td>@s.Tags</td>
+                <td>@s.Format</td>
+                <td>@s.date</td>
+                <td class="row">
+                    <a class="btn btn-primary btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
+                    <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="DeleteDB" asp-route-id=@s.ItemID method="GET">Delete</a> 
+                    @if(!s.Format.Equals("Link"))
+                    {
+                        <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                    }
+                </td>  
+            </tr>     
+        }
+      </table>
+</div>

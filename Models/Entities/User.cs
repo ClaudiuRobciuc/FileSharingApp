@@ -18,6 +18,7 @@ namespace ConsoleApplication.Models.Entities
         public string Password { get; set; } 
         [Display(Name="Name")] 
         public string Name { get; set; } 
+        public string dropBoxApi {get; set;}
         public string Email { get; set; } 
         [NotMapped]
         public List<SelectListItem> ApplicationRoles { get; set; } 

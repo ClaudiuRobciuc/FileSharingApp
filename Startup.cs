@@ -21,6 +21,8 @@ namespace ConsoleApplication
             services.AddMvc();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IItemsRepository, ItemsRepository>();
+            services.AddScoped<ICategoryRepositoryDB, CategoryRepositoryDB>();
+            services.AddScoped<IItemsRepositoryDB, ItemsRepositoryDB>();
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequiredLength = 4;

@@ -13,6 +13,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Dropbox.Api;
+using System.IO;
+using System.Net.Http.Headers;
+using System.Net;
+using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
+using System.Text;
+using Dropbox.Api.Files;
 
 namespace ConsoleApplication.Models.ViewModels 
 {
@@ -23,13 +33,13 @@ namespace ConsoleApplication.Models.ViewModels
    }
     public static class DbInitializer
     {
-        public static void Initialize(MyDbContext context) 
+        public async static void Initialize(MyDbContext context) 
         {
             
             //context.Database.EnsureCreated();
             context.Database.Migrate();
     
-            if (context.Items.Any())
+            if (context.Items.Any()&&context.DropBoxItems.Any())
             {
                 return;   // DB has been seeded
             }
@@ -38,9 +48,66 @@ namespace ConsoleApplication.Models.ViewModels
             ApplicationRole applicationRole = new ApplicationRole {
                 CreatedDate = DateTime.UtcNow
             };
-            
+           
+           
             context.SaveChanges();
-
+            /*var task = Task.Run((Func<Task>)DbInitializer.Run);
+            task.Wait();*/
+            using (var dbx = new DropboxClient("MgX6Ia7UK1AAAAAAAAAACUxEgjuhsT4DtHykvshYVhkO5EtLqHoZOvPVuG4NJ-L2"))
+            {
+                var full = await dbx.Users.GetCurrentAccountAsync();
+                Console.WriteLine(full.Email);
+                await ListRootFolder(dbx, context);
+                //await Download(dbx,"","Get Started with Dropbox.pdf");
+            } 
+            
+        }
+        
+        /*static async Task Run()
+        {
+            using (var dbx = new DropboxClient("MgX6Ia7UK1AAAAAAAAAACUxEgjuhsT4DtHykvshYVhkO5EtLqHoZOvPVuG4NJ-L2"))
+            {
+                var full = await dbx.Users.GetCurrentAccountAsync();
+                Console.WriteLine(full.Email);
+                await ListRootFolder(dbx, context);
+                //await Download(dbx,"","Get Started with Dropbox.pdf");
+            }
+        }*/
+        static async Task ListRootFolder(DropboxClient dbx, MyDbContext context)
+        {
+            List<DropBoxCategory> categories = new List<DropBoxCategory>();
+            var list = await dbx.Files.ListFolderAsync(string.Empty);
+            foreach (var file in list.Entries.Where(i => i.IsFile))
+            {
+                bool cExist= false;
+                DropBoxItems item = new DropBoxItems();
+                String fName = file.Name;
+                String aux = fName.Substring(0,(fName.IndexOf('.')));
+                String form = fName.Substring(fName.IndexOf('.'),(fName.Length-fName.IndexOf('.')));
+                //item = new Items{Title=aux,Format=form, Path=Path.Combine(uploads,file.FileName),date=System.DateTime.Now.ToString()};
+                item.Title=aux;
+                item.Format=form;
+                item.date = System.DateTime.UtcNow.ToString();
+                item.Tags = "DropBoxFile";
+                item.Path = "/"+fName;
+                var author = await dbx.Users.GetCurrentAccountAsync();
+                item.Author = author.Name.ToString();
+                context.DropBoxItems.Add(item);
+                DropBoxCategory category = new DropBoxCategory{CategoryType=form};
+                categories.Add(category);
+                for(int i=0; i< (categories.Count()-1)&&(cExist==false); i++)
+                {
+                    if(categories[i].CategoryType.Equals(form))
+                    {
+                        cExist=true;
+                        categories.Remove(categories[i]);
+                    }
+                }
+                if(cExist==false)
+                {   
+                    context.DropBoxCategory.Add(category);
+                }
+            }
         }
         public static async Task SeedRolesUsers(IServiceProvider serviceProvider)
         {

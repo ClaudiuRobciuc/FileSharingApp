@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1/",
-    "signature": "30c0896e9b6242e3b7e2e43fb3b0bdb62caada3f"
+    "signature": "61aa859aff61a00d83533df76a671f5d5a10db6f"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
           "Microsoft.AspNetCore.Mvc": "1.1.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "1.1.1",
+          "DropBox.Api": "4.3.1",
           "Microsoft.AspNetCore.Session": "1.1.0",
           "Microsoft.Extensions.Logging": "1.1.1",
           "Microsoft.Extensions.Logging.Console": "1.1.1",
@@ -31,6 +32,11 @@
         },
         "compile": {
           "FileSharingApp.dll": {}
+        }
+      },
+      "DropBox.Api/4.3.1": {
+        "compile": {
+          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Dropbox.Api.dll": {}
         }
       },
       "Libuv/1.9.1": {
@@ -2605,6 +2611,7 @@
           "Microsoft.AspNetCore.Mvc": "1.1.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "1.1.1",
+          "DropBox.Api": "4.3.1",
           "Microsoft.AspNetCore.Session": "1.1.0",
           "Microsoft.Extensions.Logging": "1.1.1",
           "Microsoft.Extensions.Logging.Console": "1.1.1",
@@ -2613,6 +2620,11 @@
         },
         "runtime": {
           "FileSharingApp.dll": {}
+        }
+      },
+      "DropBox.Api/4.3.1": {
+        "runtime": {
+          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Dropbox.Api.dll": {}
         }
       },
       "Libuv/1.9.1": {
@@ -5097,6 +5109,11 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "DropBox.Api/4.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TqGLvj4y1eysGiXwFxMfm996dON3dQ+VqBTCoPAPcF1mhKYRU9ZVqHcWBH8jrpsgLySniEOREUYOuOKCoyYrWg=="
     },
     "Libuv/1.9.1": {
       "type": "package",

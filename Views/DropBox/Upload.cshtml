@@ -1,7 +1,8 @@
  @using Microsoft.AspNetCore.Identity 
 @using ConsoleApplication.Models.Entities 
 @inject UserManager<ApplicationUser> UserManager 
- @model ConsoleApplication.Models.ViewModels.ItemViewModel
+@model ConsoleApplication.Models.Entities.DropBoxItems
+
  @section styles{
     <link rel="stylesheet" href="/styles.css" />
 }
@@ -10,22 +11,21 @@
 <div class="panel panel-default panel-shadow" style="width:80%;">
     <div class="panel-heading">Upload Item</div>
 <form method="post" class="form-horizontal" asp-action="Post" style="margin-top:10%" asp-controller="DropBox" enctype="multipart/form-data">
-
     <div class="panel-body">
         <div class="container">
          <div class="form-group">          
-                <label asp-for="@Model.Items.Description" class="col-md-2 control-label"></label>
+                <label asp-for="@Model.Description" class="col-md-2 control-label"></label>
                 <div class="col-md-4">
-                <textarea autocomplete="off" class="form-control "  asp-for="@Model.Items.Description"></textarea>
+                <textarea autocomplete="off" class="form-control "  asp-for="@Model.Description"></textarea>
             </div>
         </div>
          <div class="form-group">          
-                <label asp-for="@Model.Items.Tags" class="col-md-2 control-label"></label>
+                <label asp-for="@Model.Tags" class="col-md-2 control-label"></label>
                 <div class="col-md-4">
-                <input autocomplete="off" class="form-control " value="New"  asp-for="@Model.Items.Tags">
+                <input autocomplete="off" class="form-control " value="New"  asp-for="@Model.Tags">
             </div>
         </div>
-        <input type="hidden" class="form-control " value="@UserManager.GetUserName(User)"  asp-for="@Model.Items.Author">
+        <input type="hidden" class="form-control " value="@UserManager.GetUserName(User)"  asp-for="@Model.Author">
     <input type="file" name="files" style="margin-bottom:2%; margin-top:2%" />
     <input type="submit" class="btn btn-primary" value="Upload" />
         </div>

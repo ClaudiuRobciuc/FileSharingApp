@@ -148,7 +148,6 @@ namespace ConsoleApplication.Controllers
                 items = items.OrderBy(s => s.Title);
                 break;
             }
-            
             civm.Items = items;
             return View(civm);
         } 

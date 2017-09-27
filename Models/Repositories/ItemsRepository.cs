@@ -3,6 +3,7 @@ using System.Linq;
 using ConsoleApplication.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using ConsoleApplication.Models.ViewModels;
+using System;
 
 namespace ConsoleApplication.Models.Repositories
 {
@@ -46,9 +47,13 @@ namespace ConsoleApplication.Models.Repositories
         }
 
         public void Save(Items items)
-        {
+        {   try{
             _db.Items.Add(items);
             _db.SaveChanges();
+            }catch(Exception e)
+            {
+                
+            }
         }
 
         public void Update(Items Items)

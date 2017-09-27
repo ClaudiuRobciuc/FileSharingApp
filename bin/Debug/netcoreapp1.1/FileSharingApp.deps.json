@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "82feb65f62aa06723392586c9a76ef663cf33630"
+    "signature": "00c77038a414eb57ce6e145b42ced430ddf910f3"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
           "Microsoft.AspNetCore.Mvc": "1.1.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "1.1.1",
+          "DropBox.Api": "4.3.1",
           "Microsoft.AspNetCore.Session": "1.1.0",
           "Microsoft.Extensions.Logging": "1.1.1",
           "Microsoft.Extensions.Logging.Console": "1.1.1",
@@ -34,6 +35,14 @@
         },
         "compile": {
           "FileSharingApp.dll": {}
+        }
+      },
+      "DropBox.Api/4.3.1": {
+        "runtime": {
+          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Dropbox.Api.dll": {}
+        },
+        "compile": {
+          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Dropbox.Api.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/1.1.0": {
@@ -3361,6 +3370,11 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "DropBox.Api/4.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TqGLvj4y1eysGiXwFxMfm996dON3dQ+VqBTCoPAPcF1mhKYRU9ZVqHcWBH8jrpsgLySniEOREUYOuOKCoyYrWg=="
     },
     "Microsoft.AspNetCore.Antiforgery/1.1.0": {
       "type": "package",

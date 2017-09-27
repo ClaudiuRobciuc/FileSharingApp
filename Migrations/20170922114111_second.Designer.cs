@@ -8,8 +8,8 @@ using ConsoleApplication.Models.ViewModels;
 namespace FileSharingApp.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20170906105151_first")]
-    partial class first
+    [Migration("20170922114111_second")]
+    partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,6 +112,49 @@ namespace FileSharingApp.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("ConsoleApplication.Models.Entities.DropBoxCategory", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CategoryType")
+                        .IsRequired();
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("DropBoxCategory");
+                });
+
+            modelBuilder.Entity("ConsoleApplication.Models.Entities.DropBoxItems", b =>
+                {
+                    b.Property<int>("ItemID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Format");
+
+                    b.Property<string>("Link");
+
+                    b.Property<string>("Path");
+
+                    b.Property<string>("Tags")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.Property<string>("date");
+
+                    b.HasKey("ItemID");
+
+                    b.ToTable("DropBoxItems");
+                });
+
             modelBuilder.Entity("ConsoleApplication.Models.Entities.Items", b =>
                 {
                     b.Property<int>("ItemID")
@@ -154,6 +197,8 @@ namespace FileSharingApp.Migrations
                     b.Property<string>("Password");
 
                     b.Property<string>("UserName");
+
+                    b.Property<string>("dropBoxApi");
 
                     b.HasKey("UserID");
 

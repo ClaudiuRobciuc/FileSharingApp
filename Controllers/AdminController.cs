@@ -26,19 +26,29 @@ namespace ConsoleApplication.Controllers
         private IHostingEnvironment hostingEnv;
         private ICategoryRepository categoryRepository;
         private IItemsRepository itemsRepository;
+        private ICategoryRepositoryDB categoryRepositoryDB;
+        private IItemsRepositoryDB itemsRepositoryDB;
         //multiple items with multiple categories
         private CategoriesItemsViewModel civm = new CategoriesItemsViewModel(); 
         
         //Single Item with the possibility of more categories
         private ItemViewModel ivm = new ItemViewModel();
+         private CategoriesItemsViewModelDB civmDB = new CategoriesItemsViewModelDB(); 
         
-        public AdminController(ICategoryRepository categoryRepository, IItemsRepository itemsRepository, IHostingEnvironment env)
+        private ItemViewModelDB ivmDB = new ItemViewModelDB();
+        
+        public AdminController(ICategoryRepository categoryRepository, IItemsRepository itemsRepository, ICategoryRepositoryDB categoryRepositoryDB, IItemsRepositoryDB itemsRepositoryDB, IHostingEnvironment env)
         {
             this.categoryRepository = categoryRepository;
             this.itemsRepository = itemsRepository;  
+            this.categoryRepositoryDB = categoryRepositoryDB;
+            this.itemsRepositoryDB = itemsRepositoryDB;  
             civm.Categories = categoryRepository.GetAll().ToList();
             civm.Items = itemsRepository.GetAll();  
             ivm.Categories = categoryRepository.GetAll().ToList();      
+            civmDB.Categories = categoryRepositoryDB.GetAll().ToList();
+            civmDB.Items = itemsRepositoryDB.GetAll();  
+            ivmDB.Categories = categoryRepositoryDB.GetAll().ToList();    
             this.hostingEnv = env;
         }
        
@@ -71,10 +81,7 @@ namespace ConsoleApplication.Controllers
                         if(i.Format.Equals(selection))
                             aux.Add(i);
                     }
-                    /*Category c = categoryRepository.GetByName(selection);
-                    categoryRepository.Delete(c);
-                    c.Selected=true;
-                    categoryRepository.Save(c);*/
+                    
                     k=categoryRepository.Size();
                     for(int j=n; j<k&&madeTrue[n]==false; j++)
                     {
@@ -152,6 +159,116 @@ namespace ConsoleApplication.Controllers
             civm.Items = items;
             return View(civm);
         } 
+        [HttpGet]
+        public IActionResult IndexDB(String sortOrder, String searchString, String[] format)
+        {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["FormatSortParm"] = sortOrder == "Format" ? "format_desc" : "Format";
+            ViewData["DescriptionSortParm"] = sortOrder == "Description" ? "description_desc" : "Description";
+            ViewData["TagsSortParm"] = sortOrder == "Tags" ? "tags_desc" : "Tags";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+            List<Boolean> madeTrue = new List<Boolean>();
+            
+            foreach(DropBoxCategory c in categoryRepositoryDB.GetAll())
+                madeTrue.Add(false);
+            try{
+            if(!String.IsNullOrEmpty(format[0]))
+            {
+                int k=0;
+                int n=0;
+
+                ViewData["FormatFilter"] = format;
+                List<DropBoxItems> aux = new List<DropBoxItems>();
+                List<DropBoxCategory> category = categoryRepositoryDB.GetAll().ToList();
+                foreach(var selection in format)
+                {
+                    foreach(DropBoxItems i in itemsRepositoryDB.GetAll())
+                    {
+                        if(i.Format.Equals(selection))
+                            aux.Add(i);
+                    }
+                    /*Category c = categoryRepository.GetByName(selection);
+                    categoryRepository.Delete(c);
+                    c.Selected=true;
+                    categoryRepository.Save(c);*/
+                    k=categoryRepositoryDB.Size();
+                    for(int j=n; j<k&&madeTrue[n]==false; j++)
+                    {
+
+                        if(category[j].CategoryType.Equals(selection))
+                        {
+                            categoryRepositoryDB.Get(category[j].CategoryID).Selected=true;
+                            madeTrue[n]=true;
+                        }
+                        else
+                        {
+                            categoryRepositoryDB.Get(category[j].CategoryID).Selected=false;
+                            n++;
+                        }
+                    }
+                    n++;
+                }
+                for(int j=0; j<categoryRepositoryDB.Size(); j++)
+                {
+                    categoryRepositoryDB.Get(category[j].CategoryID).Selected=madeTrue[j];
+                }
+                civmDB.Items = aux;  
+            }
+            else{
+                foreach(DropBoxCategory c in categoryRepositoryDB.GetAll())
+                    categoryRepositoryDB.Get(c.CategoryID).Selected=false;
+            } 
+            }catch(Exception e){
+                
+            }
+            
+            var items = civmDB.Items;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                
+                items = items.Where(s => s.Title.ToLower().Contains(searchString.ToLower())
+                               || s.Tags.ToLower().Contains(searchString.ToLower()));
+               
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                items = items.OrderByDescending(s => s.Title);
+                break;
+                case "Format":
+                items = items.OrderBy(s => s.Format);
+                break;
+                case "format_desc":
+                items = items.OrderByDescending(s => s.Format);
+                break;
+                case "Description":
+                items = items.OrderBy(s => s.Description);
+                break;
+                case "description_desc":
+                items = items.OrderByDescending(s => s.Description);
+                break;
+                case "Tags":
+                items = items.OrderBy(s => s.Tags);
+                break;
+                case "tags_desc":
+                items = items.OrderByDescending(s => s.Tags);
+                break;
+                case "Date":
+                items = items.OrderBy(s => s.date);
+                break;
+                case "date_desc":
+                items = items.OrderByDescending(s => s.date);
+                break;
+                default:
+                items = items.OrderBy(s => s.Title);
+                break;
+            }
+            
+            civmDB.Items = items;
+            return View(civmDB);
+        } 
+
 
         public FileResult Download(int id)
         {
@@ -223,6 +340,32 @@ namespace ConsoleApplication.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+         [HttpGet]
+        public IActionResult DeleteDB(int id)
+        {
+            bool formatExists = false;
+            DropBoxItems s = itemsRepositoryDB.Get(id);
+            String format= s.Format;
+            itemsRepositoryDB.Delete(s);
+            
+            foreach(DropBoxItems i in itemsRepositoryDB.GetAll())
+            {
+                if(format.Equals(i.Format))
+                {
+                    formatExists = true;
+                    break;
+                }
+            }
+            if(formatExists==false)
+            {
+                foreach(DropBoxCategory c in categoryRepositoryDB.GetAll())
+                {
+                    if(format.Equals(c.CategoryType))
+                        categoryRepositoryDB.Delete(c);
+                }
+            }
+            return RedirectToAction("IndexDB");
         }
         public IActionResult Upload()
         {

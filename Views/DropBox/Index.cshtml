@@ -1,4 +1,4 @@
-@model ConsoleApplication.Models.ViewModels.CategoriesItemsViewModel
+@model ConsoleApplication.Models.ViewModels.CategoriesItemsViewModelDB
 @section styles{
     <link rel="stylesheet" href="/styles.css" />
 }
@@ -12,7 +12,7 @@
     max-height:92vh">
     <div class="panel-heading">Search and Sort</div>
     <div class="panel-body">
-    <form asp-controller="Home" asp-action="index" method="get" class="form-horizontal" style="margin-top:3vh">
+    <form asp-controller="DropBox" asp-action="index" method="get" class="form-horizontal" style="margin-top:3vh">
     <fieldset>
         <legend>Categories</legend>
         <div class="format-checkbox" >
@@ -74,10 +74,10 @@
                 <textarea readonly class="description description-mobile" style="font-size:100%">@s.Description</textarea>
 
                 
-                    <a class="btn btn-primary btn-sm btn-mobile" style="margin-left:1.3vw; marign-right:3vw" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
+                    <a class="btn btn-primary btn-sm btn-mobile" style="margin-left:1.3vw; marign-right:3vw" asp-controller="DropBox" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
                     @if(!s.Format.Equals("Link"))
                     {
-                        <a style="float:right; margin-right:4vh;" class="btn btn-danger btn-mobile " asp-controller="Home" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                        <a style="float:right; margin-right:4vh;" class="btn btn-danger btn-mobile " asp-controller="DropBox" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
                     }
                     else
                     {
