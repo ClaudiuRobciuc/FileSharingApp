@@ -15,6 +15,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using Dropbox.Api;
+using Microsoft.Extensions.Configuration;
+using System.Text;
+using Dropbox.Api.Files;
+using System.Net.Http;
 
 
 namespace ConsoleApplication.Controllers
@@ -36,6 +41,8 @@ namespace ConsoleApplication.Controllers
          private CategoriesItemsViewModelDB civmDB = new CategoriesItemsViewModelDB(); 
         
         private ItemViewModelDB ivmDB = new ItemViewModelDB();
+
+        private  DropboxClient dropbox = new DropboxClient("MgX6Ia7UK1AAAAAAAAAACUxEgjuhsT4DtHykvshYVhkO5EtLqHoZOvPVuG4NJ-L2");
         
         public AdminController(ICategoryRepository categoryRepository, IItemsRepository itemsRepository, ICategoryRepositoryDB categoryRepositoryDB, IItemsRepositoryDB itemsRepositoryDB, IHostingEnvironment env)
         {
@@ -339,14 +346,16 @@ namespace ConsoleApplication.Controllers
                         categoryRepository.Delete(c);
                 }
             }
+            
             return RedirectToAction("Index");
         }
          [HttpGet]
-        public IActionResult DeleteDB(int id)
+        public async Task<IActionResult> DeleteDB(int id)
         {
             bool formatExists = false;
             DropBoxItems s = itemsRepositoryDB.Get(id);
             String format= s.Format;
+            await dropbox.Files.DeleteV2Async(s.Path);
             itemsRepositoryDB.Delete(s);
             
             foreach(DropBoxItems i in itemsRepositoryDB.GetAll())
@@ -365,8 +374,10 @@ namespace ConsoleApplication.Controllers
                         categoryRepositoryDB.Delete(c);
                 }
             }
+            
             return RedirectToAction("IndexDB");
         }
+        
         public IActionResult Upload()
         {
             return View();

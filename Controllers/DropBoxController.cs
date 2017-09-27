@@ -214,8 +214,11 @@ namespace ConsoleApplication.Controllers
                         item.date = System.DateTime.Now.ToString();
                         item.Tags = folder.Name;
                         item.Path = file.PathDisplay;
-                        var author = await dbx.Users.GetCurrentAccountAsync();
-                        item.Author = author.Email.ToString();
+                        //To be replaced
+                        //var author = await dbx.Users.GetCurrentAccountAsync();
+                        //item.Author = author.Email.ToString();
+
+                        item.Author = "DropBox User";
                         items.Add(item);
                         DropBoxCategory category = new DropBoxCategory{CategoryType=form};
                         for(int i=0; i< (categories.Count())&&(cExist==false); i++)
@@ -245,8 +248,9 @@ namespace ConsoleApplication.Controllers
                 item.Tags = file.PathDisplay.Substring(0,(file.PathDisplay.IndexOf(file.Name[0])));
                 item.Path = file.PathDisplay;
             
-                var author = await dbx.Users.GetCurrentAccountAsync();
-                item.Author = author.Email.ToString();
+                //var author = await dbx.Users.GetCurrentAccountAsync();
+                //item.Author = author.Email.ToString();
+                item.Author = "DropBox User";
                 items.Add(item);
                 DropBoxCategory category = new DropBoxCategory{CategoryType=form};
                 for(int i=0; i< (categories.Count())&&(cExist==false); i++)
@@ -403,11 +407,9 @@ namespace ConsoleApplication.Controllers
                          var path = Path.Combine(uploads, file.FileName);
                             using (var mem = new FileStream(path, FileMode.Open))
                             {   bool cExist = false;
-                                await dropbox.Files.UploadAsync(
-                                "/Uploads" + "/" + file.FileName,
-                                WriteMode.Overwrite.Instance,
-                                body: mem);
-                               
+                                bool fExist = false;
+                                
+                                
                                 String fName = file.FileName;
                                 String aux = fName.Substring(0,(fName.IndexOf('.')));
                                 String form = fName.Substring(fName.IndexOf('.'),(fName.Length-fName.IndexOf('.')));
@@ -429,8 +431,29 @@ namespace ConsoleApplication.Controllers
                                     DropBoxCategory category = new DropBoxCategory{CategoryType=form};
                                     categoryRepository.Save(category);
                                 }
+                                foreach(DropBoxItems i in itemsRepository.GetAll())
+                                {   
+                                    if(i.Title.Equals(item.Title))
+                                    {
+                                        fExist=true;
+                                        itemsRepository.Delete(i);
+                                        itemsRepository.Save(item);
+                                        await dropbox.Files.DeleteV2Async(i.Path);
+                                        break;
+                                        
+                                    }
+                                }
+                                if(fExist==false)
+                                {   
+                                    itemsRepository.Save(item);
+                                  
+                                }
+                                await dropbox.Files.UploadAsync(
+                                "/Uploads" + "/" + file.FileName,
+                                WriteMode.Overwrite.Instance,
+                                body: mem);
                             }
-                            itemsRepository.Save(item);
+                            
                             System.IO.File.Delete(path);
                     }
                 }
