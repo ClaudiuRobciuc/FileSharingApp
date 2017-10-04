@@ -26,30 +26,27 @@ namespace ConsoleApplication.Controllers
     [Authorize]
     public class DropBoxController : Controller
     {
-       
+        private readonly UserManager<ApplicationUser> userManager;
         private IHostingEnvironment hostingEnv;
         private ICategoryRepositoryDB categoryRepository;
         private IItemsRepositoryDB itemsRepository;
-        //multiple items with multiple categories
+        
         private CategoriesItemsViewModelDB civm = new CategoriesItemsViewModelDB(); 
         private static CategoriesItemsViewModelDB auxCivm = new CategoriesItemsViewModelDB(); 
         private static CategoriesItemsViewModelDB auxCivmRemove = new CategoriesItemsViewModelDB(); 
-        
-        //Single Item with the possibility of more categories
+
         private ItemViewModelDB ivm = new ItemViewModelDB();
         private static DropboxClient dropbox = new DropboxClient("MgX6Ia7UK1AAAAAAAAAACUxEgjuhsT4DtHykvshYVhkO5EtLqHoZOvPVuG4NJ-L2");
         
         public DropBoxController(ICategoryRepositoryDB categoryRepository, IItemsRepositoryDB itemsRepository, IHostingEnvironment env)
         {
-           
             this.categoryRepository = categoryRepository;
             this.itemsRepository = itemsRepository;
             //auxCivm.Categories = categoryRepository.GetAll().ToList();
             auxCivm.Categories = categoryRepository.GetAll().ToList();
             auxCivm.Items = itemsRepository.GetAll().ToList();
             var task = Task.Run((Func<Task>)DropBoxController.Run);
-            task.Wait();
-           
+            task.Wait();           
             if(task.IsCompleted)
             {   try{
                
@@ -78,8 +75,6 @@ namespace ConsoleApplication.Controllers
             civm.Items = itemsRepository.GetAll();
             ivm.Categories = categoryRepository.GetAll().ToList();      
             this.hostingEnv = env;
-            
-                
             }
         }
         static async Task Run()
@@ -208,16 +203,15 @@ namespace ConsoleApplication.Controllers
                         String fName = file.Name;
                         String aux = fName.Substring(0,(fName.IndexOf('.')));
                         String form = fName.Substring(fName.IndexOf('.'),(fName.Length-fName.IndexOf('.')));
-                        //item = new Items{Title=aux,Format=form, Path=Path.Combine(uploads,file.FileName),date=System.DateTime.Now.ToString()};
+                        //item = new Items{Title=aux,Format=form, Path=Path.Combine(uploads,file.FileName),date=System.DateTime.UtcNow.ToString()};
                         item.Title=aux;
                         item.Format=form;
-                        item.date = System.DateTime.Now.ToString();
+                        item.date = System.DateTime.UtcNow.ToString();
                         item.Tags = folder.Name;
                         item.Path = file.PathDisplay;
                         //To be replaced
                         //var author = await dbx.Users.GetCurrentAccountAsync();
                         //item.Author = author.Email.ToString();
-
                         item.Author = "DropBox User";
                         items.Add(item);
                         DropBoxCategory category = new DropBoxCategory{CategoryType=form};
@@ -241,10 +235,10 @@ namespace ConsoleApplication.Controllers
                 String fName = file.Name;
                 String aux = fName.Substring(0,(fName.IndexOf('.')));
                 String form = fName.Substring(fName.IndexOf('.'),(fName.Length-fName.IndexOf('.')));
-                //item = new Items{Title=aux,Format=form, Path=Path.Combine(uploads,file.FileName),date=System.DateTime.Now.ToString()};
+                //item = new Items{Title=aux,Format=form, Path=Path.Combine(uploads,file.FileName),date=System.DateTime.UtcNow.ToString()};
                 item.Title=aux;
                 item.Format=form;
-                item.date = System.DateTime.Now.ToString();
+                item.date = System.DateTime.UtcNow.ToString();
                 item.Tags = file.PathDisplay.Substring(0,(file.PathDisplay.IndexOf(file.Name[0])));
                 item.Path = file.PathDisplay;
             
@@ -480,7 +474,7 @@ namespace ConsoleApplication.Controllers
             if (ModelState.IsValid)
             {
                 itemsRepository.Delete(c);
-                c.date=System.DateTime.Now.ToString();
+                c.date=System.DateTime.UtcNow.ToString();
                 itemsRepository.Save(c);
                 return RedirectToAction("Index");
             }

@@ -131,8 +131,7 @@ namespace ConsoleApplication.Models.ViewModels
                     Email = "claudiu1robciuc@yahoo.com" 
                 }; 
               await userManager.CreateAsync(user, "Cclaudiu2@"); 
-              await userManager.AddToRoleAsync(user, applicationRole.Name); 
-                        
+              await userManager.AddToRoleAsync(user, applicationRole.Name);               
             
         }            
     }
