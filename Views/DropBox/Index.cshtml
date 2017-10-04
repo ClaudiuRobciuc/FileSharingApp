@@ -55,7 +55,7 @@
     border-color:black;
     ">
     
-    @if(s.Format.Equals("Link"))
+                @if(s.Format.Equals("Link"))
                 {
                     <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a> </div>
                 }
@@ -84,8 +84,8 @@
                         <a target="_blank" href=@s.Link style="float:right; margin-right:4vh; width:5vw " class="btn btn-danger btn-sm btn-mobile" >View</a>
                     }
                 
-                <div style="height:5vh">Added/Modified by: @s.Author</div>
-                <div>Tags: @s.Tags</div>
+                <div style="height:8vh; font-size:0.7vw;margin-left:1.3vw;">Added/Modified by: <b>@s.Author</b></div>
+                <div style="font-size:0.7vw">Tags: @s.Tags</div>
                     
             </div>
             </div>
