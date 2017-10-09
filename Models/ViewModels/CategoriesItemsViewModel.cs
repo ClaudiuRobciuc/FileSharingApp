@@ -7,6 +7,7 @@ namespace ConsoleApplication.Models.ViewModels
     {
         public List<Category> Categories { get; set; }
         public IEnumerable<Items> Items { get; set; }
+        public List<string> GroupTags {get; set;}
 
         
     }

@@ -46,6 +46,7 @@ namespace ConsoleApplication.Controllers
             auxCivm.Categories = categoryRepository.GetAll().ToList();
             auxCivm.Items = itemsRepository.GetAll().ToList();
             var task = Task.Run((Func<Task>)DropBoxController.Run);
+            civm.GroupTags = new List<String>();
             task.Wait();           
             if(task.IsCompleted)
             {   try{
@@ -241,7 +242,6 @@ namespace ConsoleApplication.Controllers
                 item.date = System.DateTime.UtcNow.ToString();
                 item.Tags = file.PathDisplay.Substring(0,(file.PathDisplay.IndexOf(file.Name[0])));
                 item.Path = file.PathDisplay;
-            
                 //var author = await dbx.Users.GetCurrentAccountAsync();
                 //item.Author = author.Email.ToString();
                 item.Author = "DropBox User";
@@ -277,7 +277,11 @@ namespace ConsoleApplication.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
             List<Boolean> madeTrue = new List<Boolean>();
-            
+            foreach(DropBoxItems i in civm.Items)
+            {
+                civm.GroupTags.Add(i.Tags);
+            }
+            civm.GroupTags = civm.GroupTags.Distinct().ToList();
             foreach(DropBoxCategory c in categoryRepository.GetAll())
                 madeTrue.Add(false);
             try{
@@ -285,7 +289,6 @@ namespace ConsoleApplication.Controllers
             {
                 int k=0;
                 int n=0;
-
                 ViewData["FormatFilter"] = format;
                 List<DropBoxItems> aux = new List<DropBoxItems>();
                 List<DropBoxCategory> category = categoryRepository.GetAll().ToList();
@@ -296,16 +299,13 @@ namespace ConsoleApplication.Controllers
                         if(i.Format.Equals(selection))
                             aux.Add(i);
                     }
-                   
                     k=categoryRepository.Size();
                     for(int j=n; j<k&&madeTrue[n]==false; j++)
                     {
-
                         if(category[j].CategoryType.Equals(selection))
                         {
                             categoryRepository.Get(category[j].CategoryID).Selected=true;
-                            madeTrue[n]=true;
-                            
+                            madeTrue[n]=true;        
                         }
                         else
                         {
@@ -377,9 +377,20 @@ namespace ConsoleApplication.Controllers
         {
             DropBoxItems item = itemsRepository.Get(id);
             //byte[] fileBytes = System.IO.File.ReadAllBytes(item.Path);
-            string fileName = item.Title+item.Format;
+            //string fileName = item.Title+item.Format;
             string path = item.Path;
-            //Console.WriteLine(path);
+            
+            string fileName="";
+            char[] aux = path.ToCharArray();
+            for(int i=aux.Count()-1;i>0;i--)
+            {
+                    if(aux[i]=='/'||aux[i]=='\\')
+                        i=0;
+                    else
+                    {
+                        fileName=aux[i]+fileName;
+                    }
+            } 
             using (var response = await dropbox.Files.DownloadAsync(path))
             {
                 //Console.WriteLine(await response.GetContentAsStringAsync());
@@ -485,6 +496,41 @@ namespace ConsoleApplication.Controllers
         }
 
         //Delete
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            DropBoxItems i = itemsRepository.Get(id);
+            return View(i);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(DropBoxItems s)
+        {
+           bool formatExists = false;
+           
+            String format= s.Format;
+            await dropbox.Files.DeleteV2Async(s.Path);
+            itemsRepository.Delete(s);
+            
+            foreach(DropBoxItems i in itemsRepository.GetAll())
+            {
+                if(format.Equals(i.Format))
+                {
+                    formatExists = true;
+                    break;
+                }
+            }
+            if(formatExists==false)
+            {
+                foreach(DropBoxCategory c in categoryRepository.GetAll())
+                {
+                    if(format.Equals(c.CategoryType))
+                        categoryRepository.Delete(c);
+                }
+            }
+            
+            return RedirectToAction("Index");
+        }
+        
         [HttpGet]
         
         public IActionResult Upload()

@@ -7,7 +7,6 @@ namespace ConsoleApplication.Models.ViewModels
     {
         public List<DropBoxCategory> Categories { get; set; }
         public IEnumerable<DropBoxItems> Items { get; set; }
-
-        
+        public List<string> GroupTags {get; set;}
     }
 }

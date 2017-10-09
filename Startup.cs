@@ -48,9 +48,7 @@ namespace ConsoleApplication
                 name: "default",
                 template: "{controller=Home}/{action=Index}");
             });
-            
             DbInitializer.Initialize(context);
-            
             DbInitializer.SeedRolesUsers(app.ApplicationServices);
        }
     }

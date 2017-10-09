@@ -40,6 +40,8 @@ namespace ConsoleApplication.Controllers
             civm.Items = itemsRepository.GetAll();  
             ivm.Categories = categoryRepository.GetAll().ToList();      
             this.hostingEnv = env;
+            civm.GroupTags = new List<String>();
+            
         }
        
         [HttpGet]
@@ -52,7 +54,11 @@ namespace ConsoleApplication.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchString;
             List<Boolean> madeTrue = new List<Boolean>();
-            
+            foreach(Items i in civm.Items)
+            {
+                civm.GroupTags.Add(i.Tags);
+            }
+            civm.GroupTags = civm.GroupTags.Distinct().ToList();
             foreach(Category c in categoryRepository.GetAll())
                 madeTrue.Add(false);
             try{
@@ -151,13 +157,116 @@ namespace ConsoleApplication.Controllers
             civm.Items = items;
             return View(civm);
         } 
-
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Items i = itemsRepository.Get(id);
+            return View(i);
+        }
+        [HttpPost]
+        public IActionResult Delete(Items s)
+        {
+            bool formatExists = false;
+            
+            String format= s.Format;
+            if(!format.Equals("Link")&&(!String.IsNullOrEmpty(s.Path)))
+            {         
+                
+                System.IO.File.Delete(s.Path);   
+            }
+            itemsRepository.Delete(s);
+            
+            foreach(Items i in itemsRepository.GetAll())
+            {
+                if(format.Equals(i.Format))
+                {
+                    formatExists = true;
+                    break;
+                }
+            }
+            if(formatExists==false)
+            {
+                foreach(Category c in categoryRepository.GetAll())
+                {
+                    if(format.Equals(c.CategoryType))
+                        categoryRepository.Delete(c);
+                }
+            }
+            
+            return RedirectToAction("Index");
+        }
         public FileResult Download(int id)
         {
             Items item = itemsRepository.Get(id);
             byte[] fileBytes = System.IO.File.ReadAllBytes(item.Path);
-            string fileName = item.Title+item.Format;
+            //string fileName = item.Title+item.Format;
+            string fileName="";
+            char[] aux = item.Path.ToCharArray();
+            for(int i=aux.Count()-1;i>0;i--)
+            {
+                    if(aux[i]=='/'||aux[i]=='\\')
+                        i=0;
+                    else
+                    {
+                        fileName=aux[i]+fileName;
+                    }
+            } 
             return File(fileBytes,"application/x-msdownload", fileName);
+            //return File(System.IO.File.OpenRead(item.Path), contentType: "application/pdf");
+        }
+        public IActionResult Preview(int id)
+        {   
+            Items item = itemsRepository.Get(id);
+            string fileName="";
+            string content = "";
+            char[] aux = item.Path.ToCharArray();
+            for(int i=aux.Count()-1;i>0;i--)
+            {
+                    if(aux[i]=='/'||aux[i]=='\\')
+                        i=0;
+                    else
+                    {
+                        fileName=aux[i]+fileName;
+                    }
+            }
+            if(item.Format.ToLower().Contains("html"))
+            {
+                content = "text/HTML";
+            }
+            if(item.Format.ToLower().Contains("gif"))
+            {
+                content = "image/GIF";
+            }
+            if(item.Format.ToLower().Contains("jpeg"))
+            {
+                content = "image/JPEG";
+            }
+            if(item.Format.ToLower().Contains("jpg"))
+            {
+                content = "image/JPG";
+            }
+            if(item.Format.ToLower().Contains("txt"))
+            {
+                content = "text/plain";
+            }
+            if(item.Format.ToLower().Contains("log"))
+            {
+                content = "text/plain";
+            }
+            if(item.Format.ToLower().Contains("doc"))
+            {
+                content = "Application/msword";
+            }
+            if(item.Format.ToLower().Contains("xcel"))
+            {
+                content = "Application/x-msexcel";
+            }
+            if(item.Format.ToLower().Contains("pdf"))
+            {
+                content = "Application/pdf";
+            }
+            return File(System.IO.File.OpenRead(item.Path), contentType: content);
+            
         }
 
         [HttpGet]
@@ -183,7 +292,7 @@ namespace ConsoleApplication.Controllers
             }
         }
 
-        //Delete
+        
         [HttpGet]
         
         public IActionResult Upload()
@@ -237,7 +346,7 @@ namespace ConsoleApplication.Controllers
                         String aux = fName.Substring(0,(fName.IndexOf('.')));
                         String form = fName.Substring(fName.IndexOf('.'),(fName.Length-fName.IndexOf('.')));
                         //item = new Items{Title=aux,Format=form, Path=Path.Combine(uploads,file.FileName),date=System.DateTime.Now.ToString()};
-                        item.Items.Title=aux;
+                        //item.Items.Title=aux;
                         item.Items.Format=form;
                         item.Items.Path = Path.Combine(uploads,file.FileName);
                         item.Items.date = System.DateTime.Now.ToString();

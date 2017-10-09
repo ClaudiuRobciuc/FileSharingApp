@@ -4,7 +4,7 @@
 }
 
 <div class= "left-panel">
-    <form asp-controler="Admin" asp-action="index" method="get" class="form-horizontal" style="margin-top:10%">
+    <form asp-controler="Admin" asp-action="indexDB" method="get" class="form-horizontal" style="margin-top:10%">
     <fieldset>
         <legend>Choose the format</legend>
         
@@ -61,7 +61,7 @@
                     <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="DeleteDB" asp-route-id=@s.ItemID method="GET">Delete</a> 
                     @if(!s.Format.Equals("Link"))
                     {
-                        <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                        <a class="btn btn-danger btn-sm col-xs-4 col-xs-offset-1" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
                     }
                 </td>  
             </tr>     

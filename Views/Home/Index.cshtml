@@ -38,6 +38,17 @@
             <a asp-action="Index" style="font-size:150%">Back to Full List</a>
         </p>
     </div>
+    <fieldset>
+        <legend>Tag List</legend>
+        <div class="format-taglist" >
+            @foreach(var i in Model.GroupTags)
+            {   
+                <div class="col-xs-4 limit">
+                    <div class="tag-para">@i</div>
+                </div>
+            } 
+        </div>  
+    </fieldset>
 </form>
 </div>
 </div>
@@ -57,11 +68,21 @@
     
     @if(s.Format.Equals("Link"))
                 {
-                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a> </div>
+                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a>
+                    <a style="text-align:right; float:right" asp-action="Delete" method ="GET" asp-controller="Home" asp-route-id=@s.ItemID>
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    
+                    </div>
                 }
                 else
                 {
-                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold">@s.Title</div>
+                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" asp-controller="Home" asp-action="Preview" asp-route-id=@s.ItemID>@s.Title</a>
+                    <a style="text-align:right; float:right"  asp-action="Delete" method ="GET" asp-controller="Home" asp-route-id=@s.ItemID >
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    
+                    </div>
                 }
                 <div class="panel-body" style="max-height: 30vh">
                 <div class="row">
@@ -71,9 +92,7 @@
                         @s.date
                         </div>
                     </div>
-                <textarea readonly class="description description-mobile" style="font-size:100%">@s.Description</textarea>
-
-                
+                    <textarea readonly class="description description-mobile" style="font-size:100%">@s.Description</textarea>
                     <a class="btn btn-primary btn-sm btn-mobile" style="margin-left:1.3vw; marign-right:3vw" asp-controller="Home" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
                     @if(!s.Format.Equals("Link"))
                     {

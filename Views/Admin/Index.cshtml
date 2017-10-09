@@ -32,7 +32,7 @@
 </form>
 
 <div class= "adminContainer">
-<table class="table table-striped table-hover table-responsive" style="text-align: left"> 
+<table class="table table-striped table-hover table-responsive" > 
         <thead class="row">
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Title</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParm"]">Description</a></th>
@@ -41,6 +41,7 @@
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Date</a></th>
             <th><span class="col-xs-offset-1">Action<span></th>
         </thead>
+        <tbody style="text-align: left; dysplay:block; min-width:30vw; height:300px; overflow-y:auto; overflow-x:hidden">
      @foreach(var s in Model.Items)
         {           
             <tr class = "rowInfo"> 
@@ -57,14 +58,14 @@
                 <td>@s.Format</td>
                 <td>@s.date</td>
                 <td class="row">
-                    <a class="btn btn-primary btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
-                    <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Delete" asp-route-id=@s.ItemID method="GET">Delete</a> 
+                    <a class="btn btn-danger btn-sm col-xs-4 col-xs-offset-1" style="min-width:35%" asp-controller="Admin" asp-action="Delete" asp-route-id=@s.ItemID method="GET">Delete</a> 
                     @if(!s.Format.Equals("Link"))
                     {
-                        <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                        <a class="btn btn-danger btn-sm col-xs-4 col-xs-offset-1" style="min-width:35%" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
                     }
                 </td>  
             </tr>     
         }
+        </tbody>
       </table>
 </div>

@@ -84,7 +84,7 @@ div.field{
     border-radius: 10px;
     margin: auto;
     padding: 10px;
-    margin-left:1vw;
+    margin-left:1.3vw;
     margin-bottom:2vh;
     width: 25vh;
     height:9vh;
@@ -94,8 +94,24 @@ div.field{
 
 div.format-checkbox{
     max-height:10vh; 
-    width:20vh; 
+    width:23vh; 
     overflow:auto;
+}
+div.format-taglist{
+    max-height:10vh; 
+    width:23vh; 
+    overflow-y:auto;
+    overflow-x: hidden;
+    font-size:1.25vh;
+
+}
+.limit {
+    max-height:3.5vh;
+    overflow:hidden;
+  }
+div.tags-parah{
+    height: 2%;
+    overflow-y: auto;
 }
 .panel-primary-mobile{
     overflow:auto; 
@@ -110,7 +126,7 @@ textarea.description{
     border-radius: 10px;
     margin: auto;
     padding: 10px;
-    margin-left:1vw;
+    margin-left:1.3vw;
     margin-bottom:3vh;   
     width: 25vh;
     height:9vh;

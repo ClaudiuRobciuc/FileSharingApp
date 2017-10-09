@@ -16,25 +16,36 @@
         <input class="form-control" type="Hidden" asp-for="@Model.Items.ItemID">
       
       <div class="panel-body" style="align-content:center">
-       <div class="form-group">          
-                
-                <input type="hidden" class="form-control "  asp-for="@Model.Items.Title">
-            
+         
+       <div class="form-group">   
+           <label asp-for="@Model.Items.Title" class="col-md-2 control-label"></label>   
+                   <div class="col-md-8 ">       
+                <input autocomplete="off" class="form-control "  asp-for="@Model.Items.Title">
+                   </div>
         </div>
+         @if(!String.IsNullOrEmpty(@Model.Items.Link))
+          {
+              <div class="form-group">  
+                   <label asp-for="@Model.Items.Link" class="col-md-2 control-label"></label>   
+                   <div class="col-md-8 ">     
+                <input autocomplete="off"   class="form-control "  asp-for="@Model.Items.Link">
+                   </div>
+                </div>
+          }
          <div class="form-group">          
                 <label asp-for="@Model.Items.Description" class="col-md-2 control-label"></label>
-                <div class="col-md-4">
+                <div class="col-md-8">
                 <textarea autocomplete="off" class="form-control "  asp-for="@Model.Items.Description"></textarea>
             </div>
         </div>
          <div class="form-group">          
                 <label asp-for="@Model.Items.Tags" class="col-md-2 control-label"></label>
-                <div class="col-md-4">
+                <div class="col-md-8">
                 <input autocomplete="off" class="form-control "  asp-for="@Model.Items.Tags">
             </div>
         </div>
         <div class="form-group">          
-                <div class="col-md-4">
+                <div class="col-md-6">
                 <input autocomplete="off" type="hidden" class="form-control "  asp-for="@Model.Items.Format">
             </div>
         </div>
