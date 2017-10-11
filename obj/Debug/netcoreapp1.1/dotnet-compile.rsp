@@ -221,6 +221,7 @@ C:\Users\ClaudiuRBC\Documents\FileSharingApp\Migrations\MyDbContextModelSnapshot
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\DbInitializer.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\MyDbContext.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Entities\ApplicationRole.cs
+C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Entities\ApplicationRoleView.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Entities\ApplicationUser.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Entities\Category.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Entities\DropBoxCategory.cs
@@ -240,6 +241,7 @@ C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Repositories\ItemsRepository
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\Repositories\ItemsRepositoryDB.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\ViewModels\CategoriesItemsViewModel.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\ViewModels\CategoriesItemsViewModelDB.cs
+C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\ViewModels\EditUserViewModel.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\ViewModels\ItemViewModel.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\ViewModels\ItemViewModelDB.cs
 C:\Users\ClaudiuRBC\Documents\FileSharingApp\Models\ViewModels\LoginViewModel.cs

@@ -1,16 +1,13 @@
 @model IEnumerable<UserListView> 
 @using ConsoleApplication.Models.Entities 
 
- @section scripts
-{
-     <script src="~/js/user-index.js" asp-append-version="true"></script> 
-}
+
 <div class="top-buffer" style="margin-top:10%"></div> 
 <div class="panel panel-primary"> 
     <div class="panel-heading panel-head">Users</div> 
     <div class="panel-body"> 
         <div class="btn-group"> 
-            <a id="createEditUserModal" data-toggle="modal" asp-action="AddUser" data-target="#modal-action-user" class="btn btn-primary"> 
+            <a id="createEditUserModal"  asp-action="AddUser" asp-controller="User" class="btn btn-primary"> 
                 <i class="glyphicon glyphicon-plus"></i>  Add User 
             </a> 
         </div> 
@@ -29,8 +26,12 @@
                     <tr> 
                         <td>@item.Name</td> 
                         <td>@item.Email</td>                         
-                        <td>  
-                            <a id="deleteUserModal" data-toggle="modal" asp-action="DeleteUser" asp-route-id="@item.Id" data-target="#modal-action-user" method="POST" class="btn btn-danger"> 
+                        <td> 
+                            <a id="editUserModal" asp-controller="User" asp-action="EditUser" asp-route-id="@item.Id"  
+                               class="btn btn-info"> 
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit 
+                            </a>   
+                            <a id="deleteUserModal" asp-controller="User" asp-action="DeleteUser" asp-route-id="@item.Id"  method="POST" class="btn btn-danger"> 
                                 <i class="glyphicon glyphicon-trash"></i>  Delete 
                             </a> 
                         </td> 
@@ -41,3 +42,6 @@
     </div> 
 </div>  
    
+@section scripts{
+     <script type="text/javascript" src="~/js/user-index.js" asp-append-version="true"></script>
+}

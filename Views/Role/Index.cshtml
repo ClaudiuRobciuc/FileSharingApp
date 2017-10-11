@@ -6,7 +6,7 @@
     <div class="panel-heading panel-head">Application Roles</div> 
     <div class="panel-body"> 
         <div class="btn-group"> 
-            <a id="createRoleModal" data-toggle="modal" asp-action="AddRole" data-target="#modal-action-application-role" class="btn btn-primary"> 
+            <a id="createRoleModal"  asp-action="AddRole" asp-controller="Role" class="btn btn-primary"> 
                 <i class="glyphicon glyphicon-plus"></i>  Add Role 
             </a> 
         </div> 
@@ -24,10 +24,11 @@
                     <tr> 
                         <td>@item.RoleName</td>                                             
                         <td>                             
-                            <a id="addEditApplicationRoleModal" data-toggle="modal" asp-action="AddRole" asp-route-id="@item.Id" data-target="#modal-action-application-role" 
-                               class="btn btn-info"> 
-                                <i class="glyphicon glyphicon-pencil"></i>  Edit 
+                           
+                            <a id="deleteApplicationRoleModal"  asp-action="DeleteRole" asp-route-id="@item.Id" asp-controller="Role" class="btn btn-danger"> 
+                                <i class="glyphicon glyphicon-trash"></i>  Delete 
                             </a> 
+                            
                         </td> 
                     </tr> 
                 } 

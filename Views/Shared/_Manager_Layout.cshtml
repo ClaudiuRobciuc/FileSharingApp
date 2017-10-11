@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Users/Roles</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles.css" />
@@ -11,14 +11,17 @@
         crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+        
+   
 </head>
 <body>
-    @RenderSection("styles", required: false)
-    @RenderSection("scripts", required: false)
+    
+     
     <div class= "container">
         @RenderBody()
     </div>
+    @RenderSection("scripts", required: false)
+    @RenderSection("styles", required: false)
 </body>
 </html>
 

@@ -14,6 +14,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using ConsoleApplication.Models.ViewModels;
 
 namespace ConsoleApplication.Controllers
 {
@@ -111,6 +112,66 @@ namespace ConsoleApplication.Controllers
                 } 
             } 
             return RedirectToAction("Index"); 
+        }
+
+        [HttpGet] 
+        public async Task<IActionResult> EditUser(string id) 
+        { 
+            EditUserViewModel model = new EditUserViewModel(); 
+            model.ApplicationRoles = roleManager.Roles.Select(r => new SelectListItem 
+            { 
+                Text = r.Name, 
+                Value = r.Id 
+            }).ToList(); 
+   
+            if (!String.IsNullOrEmpty(id)) 
+            { 
+                ApplicationUser user = await userManager.FindByIdAsync(id); 
+                if (user != null) 
+                { 
+                    model.Name = user.Name; 
+                    model.Email = user.Email; 
+                    model.ApplicationRoleId = roleManager.Roles.Single(r => r.Name == userManager.GetRolesAsync(user).Result.Single()).Id; 
+                } 
+            } 
+            return PartialView("_EditUser", model); 
+        } 
+   
+        [HttpPost] 
+        public async Task<IActionResult> EditUser(string id, EditUserViewModel model) 
+        { 
+            if (ModelState.IsValid) 
+            { 
+                ApplicationUser user = await userManager.FindByIdAsync(id); 
+                if (user != null) 
+                { 
+                    user.Name = model.Name; 
+                    user.Email = model.Email; 
+                    string existingRole = userManager.GetRolesAsync(user).Result.Single(); 
+                    string existingRoleId = roleManager.Roles.Single(r => r.Name == existingRole).Id; 
+                    IdentityResult result = await userManager.UpdateAsync(user); 
+                    if (result.Succeeded) 
+                    { 
+                        if (existingRoleId != model.ApplicationRoleId) 
+                        { 
+                            IdentityResult roleResult = await userManager.RemoveFromRoleAsync(user, existingRole); 
+                            if (roleResult.Succeeded) 
+                            { 
+                                ApplicationRole applicationRole = await roleManager.FindByIdAsync(model.ApplicationRoleId); 
+                                if (applicationRole != null) 
+                                { 
+                                    IdentityResult newRoleResult = await userManager.AddToRoleAsync(user, applicationRole.Name); 
+                                    if (newRoleResult.Succeeded) 
+                                    { 
+                                        return RedirectToAction("Index"); 
+                                    } 
+                                } 
+                            } 
+                        } 
+                    } 
+                } 
+            } 
+            return PartialView("_EditUser", model); 
         }
     }
 }

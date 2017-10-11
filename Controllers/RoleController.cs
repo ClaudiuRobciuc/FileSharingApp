@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace ConsoleApplication.Controllers
 {
@@ -70,6 +71,43 @@ namespace ConsoleApplication.Controllers
                 } 
             } 
             return View(model); 
+        }
+        [HttpGet] 
+        public async Task<IActionResult> DeleteRole(string id) 
+        { 
+            string name = string.Empty; 
+            ApplicationRole applicationRole = new ApplicationRole();
+            if (!String.IsNullOrEmpty(id)) 
+            { 
+                applicationRole = await roleManager.FindByIdAsync(id); 
+                if (applicationRole != null) 
+                { 
+                    name = applicationRole.Name; 
+                } 
+            } 
+            ApplicationRoleView applicationRoleView = new ApplicationRoleView();
+            applicationRoleView.Id= id;
+            applicationRoleView.Name=name;
+            return PartialView("_DeleteRole", applicationRoleView); 
+        } 
+   
+        [HttpPost] 
+        public async Task<IActionResult> DeleteRole(ApplicationRoleView application) 
+        { 
+            string id = application.Id;
+            if(!String.IsNullOrEmpty(id)) 
+            { 
+                ApplicationRole applicationRole = await roleManager.FindByIdAsync(id); 
+                if (applicationRole != null) 
+                { 
+                    IdentityResult roleRuslt = roleManager.DeleteAsync(applicationRole).Result; 
+                    if (roleRuslt.Succeeded) 
+                    { 
+                        return RedirectToAction("Index"); 
+                    } 
+                } 
+                } 
+            return RedirectToAction("Index"); 
         }
     }
 }
