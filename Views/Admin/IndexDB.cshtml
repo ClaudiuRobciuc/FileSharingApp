@@ -32,8 +32,10 @@
 </form>
 
 <div class= "adminContainer">
+    <form asp-controller="Admin" asp-action="DeleteDB" method="get" class="form-horizontal" style="margin-top:3vh">
 <table class="table table-striped table-hover table-responsive" style="text-align: left"> 
         <thead class="row">
+            <th><button type="submit" class="btn btn-danger btn-sm" style="min-width:35%" id="DeleteBulk">Delete Selected</a> </th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Title</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParm"]">Description</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["TagsSortParm"]">Tags</a></th>
@@ -44,27 +46,28 @@
      @foreach(var s in Model.Items)
         {           
             <tr class = "rowInfo"> 
+                <td><input type="checkbox" name="iDs" value=@s.ItemID></td>
                 @if(s.Format.Equals("Link"))
                 {
-                    <td><a href=@s.Link>@s.Title</td>
+                    <td style="overflow-y:hidden; max-width:5vw; max-height:10px"><a href=@s.Link>@s.Title</td>
                 }
                 else
                 {
-                    <td>@s.Title</td>
+                    <td style="overflow-y:hidden; max-width:5vw; max-height:10px">@s.Title</td>
                 }
                 <td style="overflow-y:hidden; max-width:50px">@s.Description</td>
                 <td>@s.Tags</td>
                 <td>@s.Format</td>
                 <td>@s.date</td>
                 <td class="row">
-                    <a class="btn btn-primary btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="Update" asp-route-id=@s.ItemID >Edit</a>
-                    <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" asp-controller="Admin" asp-action="DeleteDB" asp-route-id=@s.ItemID method="GET">Delete</a> 
+                    <a class="btn btn-danger btn-sm col-xs-3 col-xs-offset-1" style="width:40%" asp-controller="Admin" asp-action="DeleteDB" asp-route-iDs=@s.ItemID method="GET">Delete</a> 
                     @if(!s.Format.Equals("Link"))
                     {
-                        <a class="btn btn-danger btn-sm col-xs-4 col-xs-offset-1" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
+                        <a class="btn btn-danger btn-sm col-xs-4 col-xs-offset-1" style="width:40%" asp-controller="Admin" asp-action="Download" asp-route-id=@s.ItemID >Download</a>
                     }
                 </td>  
             </tr>     
         }
       </table>
+    </form>
 </div>

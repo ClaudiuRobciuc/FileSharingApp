@@ -331,7 +331,8 @@ namespace ConsoleApplication.Controllers
        [HttpPost]  
         public async Task<IActionResult> Post(ICollection<IFormFile> files, ItemViewModel item)
         {   
-            
+            if(ModelState.IsValid)
+            {
             var uploads = Path.Combine(hostingEnv.WebRootPath, "Files");
             int id=0;
             foreach (var file in files)
@@ -384,9 +385,15 @@ namespace ConsoleApplication.Controllers
                     }
                 }
             }
+            
             //return RedirectToAction("Update", new{ id });
             
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Upload");
+            }
         }
     }
 }   

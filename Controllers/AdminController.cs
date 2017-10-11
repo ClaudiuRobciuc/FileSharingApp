@@ -318,14 +318,15 @@ namespace ConsoleApplication.Controllers
 
         //Delete
         [HttpGet]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(ICollection<int> iDs)
         {
+            foreach(var id in iDs)
+            {
             bool formatExists = false;
             Items s = itemsRepository.Get(id);
             String format= s.Format;
             if(!format.Equals("Link")&&(!String.IsNullOrEmpty(s.Path)))
             {         
-                
                 System.IO.File.Delete(s.Path);   
             }
             itemsRepository.Delete(s);
@@ -346,12 +347,15 @@ namespace ConsoleApplication.Controllers
                         categoryRepository.Delete(c);
                 }
             }
+            }
             
             return RedirectToAction("Index");
         }
          [HttpGet]
-        public async Task<IActionResult> DeleteDB(int id)
+        public async Task<IActionResult> DeleteDB(ICollection<int> iDs)
         {
+            foreach(var id in iDs)
+            {
             bool formatExists = false;
             DropBoxItems s = itemsRepositoryDB.Get(id);
             String format= s.Format;
@@ -373,6 +377,7 @@ namespace ConsoleApplication.Controllers
                     if(format.Equals(c.CategoryType))
                         categoryRepositoryDB.Delete(c);
                 }
+            }
             }
             
             return RedirectToAction("IndexDB");
@@ -411,7 +416,7 @@ namespace ConsoleApplication.Controllers
                 return RedirectToAction("Index");
         }
       
-       [HttpPost]  
+        [HttpPost]  
         public async Task<IActionResult> Post(ICollection<IFormFile> files, ItemViewModel item)
         {
             var uploads = Path.Combine(hostingEnv.WebRootPath, "Files");

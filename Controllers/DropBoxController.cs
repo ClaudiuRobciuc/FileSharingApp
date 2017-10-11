@@ -398,9 +398,66 @@ namespace ConsoleApplication.Controllers
                 return File(await response.GetContentAsByteArrayAsync(),"application/x-msdownload", fileName);
             }
         }
+        public IActionResult Preview(int id)
+        {   
+            DropBoxItems item = itemsRepository.Get(id);
+            
+            string fileName="";
+            string content = "";
+            char[] aux = item.Path.ToCharArray();
+            for(int i=aux.Count()-1;i>0;i--)
+            {
+                    if(aux[i]=='/'||aux[i]=='\\')
+                        i=0;
+                    else
+                    {
+                        fileName=aux[i]+fileName;
+                    }
+            }
+            if(item.Format.ToLower().Contains("html"))
+            {
+                content = "text/HTML";
+            }
+            if(item.Format.ToLower().Contains("gif"))
+            {
+                content = "image/GIF";
+            }
+            if(item.Format.ToLower().Contains("jpeg"))
+            {
+                content = "image/JPEG";
+            }
+            if(item.Format.ToLower().Contains("jpg"))
+            {
+                content = "image/JPG";
+            }
+            if(item.Format.ToLower().Contains("txt"))
+            {
+                content = "text/plain";
+            }
+            if(item.Format.ToLower().Contains("log"))
+            {
+                content = "text/plain";
+            }
+            if(item.Format.ToLower().Contains("doc"))
+            {
+                content = "Application/msword";
+            }
+            if(item.Format.ToLower().Contains("xcel"))
+            {
+                content = "Application/x-msexcel";
+            }
+            if(item.Format.ToLower().Contains("pdf"))
+            {
+                content = "Application/pdf";
+            }
+            return File(System.IO.File.OpenRead(item.Path), contentType: content);
+            
+        }
         [HttpPost]  
         public async Task<IActionResult> Post(ICollection<IFormFile> files, DropBoxItems item)
         {   
+            if(ModelState.IsValid)
+            {
             var uploads = Path.Combine(hostingEnv.WebRootPath, "Files");
                 foreach (var file in files)
                 {
@@ -464,6 +521,11 @@ namespace ConsoleApplication.Controllers
                 }
                 
             return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Upload");
+            }
         }
         [HttpGet]
         // Update
