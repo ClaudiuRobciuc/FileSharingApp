@@ -167,10 +167,15 @@ namespace ConsoleApplication.Controllers
                                     } 
                                 } 
                             } 
+                        }
+                        else
+                        {
+                           return RedirectToAction("Index");     
                         } 
                     } 
                 } 
             } 
+         
             return PartialView("_EditUser", model); 
         }
     }
