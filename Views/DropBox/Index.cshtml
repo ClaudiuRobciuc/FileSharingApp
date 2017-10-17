@@ -66,23 +66,14 @@
     border-color:black;
     ">
     
-                @if(s.Format.Equals("Link"))
-                {
-                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a> 
-                     <a style="text-align:right; float:right" asp-action="Delete" method ="GET" asp-controller="DropBox" asp-route-id=@s.ItemID>
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
-                    </div>
-                }
-                else
-                {
+                
 
-                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold">@s.Title
+                    <div class="panel-heading" style="font-size:1.8vh; font-weight:bold"><a target="_blank" href=@s.Link>@s.Title</a>
                      <a style="text-align:right; float:right" asp-action="Delete" method ="GET" asp-controller="DropBox" asp-route-id=@s.ItemID>
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                     </div>
-                }
+                
                 <div class="panel-body" style="max-height: 30vh">
                 <div class="row">
                     <div class="field field-mobile">

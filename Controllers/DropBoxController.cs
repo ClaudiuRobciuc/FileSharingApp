@@ -214,6 +214,24 @@ namespace ConsoleApplication.Controllers
                         //var author = await dbx.Users.GetCurrentAccountAsync();
                         //item.Author = author.Email.ToString();
                         item.Author = "DropBox User";
+                        if(!item.Tags.Equals("/"))
+                        {
+                            item.Link = "https://www.dropbox.com/home/"+item.Tags+"?preview=";
+                        }
+                        else
+                        {
+                            item.Link = "https://www.dropbox.com/home?preview=";
+                        }
+                                String lPath="";
+                                char[] lAux = (item.Title+item.Format).ToCharArray();
+                                foreach(var c in lAux)
+                                {
+                                    if(c==' ')
+                                        lPath=lPath+"+";
+                                    else
+                                        lPath=lPath+c;
+                                }
+                                item.Link = item.Link+lPath;
                         items.Add(item);
                         DropBoxCategory category = new DropBoxCategory{CategoryType=form};
                         for(int i=0; i< (categories.Count())&&(cExist==false); i++)
@@ -245,6 +263,24 @@ namespace ConsoleApplication.Controllers
                 //var author = await dbx.Users.GetCurrentAccountAsync();
                 //item.Author = author.Email.ToString();
                 item.Author = "DropBox User";
+                if(!item.Tags.Equals("/"))
+                        {
+                            item.Link = "https://www.dropbox.com/home/"+item.Tags+"?preview=";
+                        }
+                        else
+                        {
+                            item.Link = "https://www.dropbox.com/home?preview=";
+                        }
+                                String lPath="";
+                                char[] lAux = (item.Title+item.Format).ToCharArray();
+                                foreach(var c in lAux)
+                                {
+                                    if(c==' ')
+                                        lPath=lPath+"+";
+                                    else
+                                        lPath=lPath+c;
+                                }
+                                item.Link = item.Link+lPath;
                 items.Add(item);
                 DropBoxCategory category = new DropBoxCategory{CategoryType=form};
                 for(int i=0; i< (categories.Count())&&(cExist==false); i++)
@@ -398,61 +434,8 @@ namespace ConsoleApplication.Controllers
                 return File(await response.GetContentAsByteArrayAsync(),"application/x-msdownload", fileName);
             }
         }
-        public IActionResult Preview(int id)
-        {   
-            DropBoxItems item = itemsRepository.Get(id);
-            
-            string fileName="";
-            string content = "";
-            char[] aux = item.Path.ToCharArray();
-            for(int i=aux.Count()-1;i>0;i--)
-            {
-                    if(aux[i]=='/'||aux[i]=='\\')
-                        i=0;
-                    else
-                    {
-                        fileName=aux[i]+fileName;
-                    }
-            }
-            if(item.Format.ToLower().Contains("html"))
-            {
-                content = "text/HTML";
-            }
-            if(item.Format.ToLower().Contains("gif"))
-            {
-                content = "image/GIF";
-            }
-            if(item.Format.ToLower().Contains("jpeg"))
-            {
-                content = "image/JPEG";
-            }
-            if(item.Format.ToLower().Contains("jpg"))
-            {
-                content = "image/JPG";
-            }
-            if(item.Format.ToLower().Contains("txt"))
-            {
-                content = "text/plain";
-            }
-            if(item.Format.ToLower().Contains("log"))
-            {
-                content = "text/plain";
-            }
-            if(item.Format.ToLower().Contains("doc"))
-            {
-                content = "Application/msword";
-            }
-            if(item.Format.ToLower().Contains("xcel"))
-            {
-                content = "Application/x-msexcel";
-            }
-            if(item.Format.ToLower().Contains("pdf"))
-            {
-                content = "Application/pdf";
-            }
-            return File(System.IO.File.OpenRead(item.Path), contentType: content);
-            
-        }
+        
+    
         [HttpPost]  
         public async Task<IActionResult> Post(ICollection<IFormFile> files, DropBoxItems item)
         {   
@@ -480,6 +463,18 @@ namespace ConsoleApplication.Controllers
                                 item.Format=form;
                                 item.date = System.DateTime.UtcNow.ToString();
                                 item.Path = "/Uploads/"+file.FileName;
+                                item.Link = "https://www.dropbox.com/home/Uploads?preview=";
+                                String lPath="";
+                                char[] lAux = (item.Title+item.Format).ToCharArray();
+                                foreach(var c in lAux)
+                                {
+                                    if(c==' ')
+                                        lPath=lPath+"+";
+                                    else
+                                        lPath=lPath+c;
+                                }
+                                item.Link = item.Link+lPath;
+
                                 foreach(DropBoxCategory c in categoryRepository.GetAll())
                                 {
                                     if(c.CategoryType.Equals(form))
