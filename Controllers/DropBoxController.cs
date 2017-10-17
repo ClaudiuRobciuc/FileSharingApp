@@ -36,7 +36,7 @@ namespace ConsoleApplication.Controllers
         private static CategoriesItemsViewModelDB auxCivmRemove = new CategoriesItemsViewModelDB(); 
 
         private ItemViewModelDB ivm = new ItemViewModelDB();
-        private static DropboxClient dropbox = new DropboxClient("MgX6Ia7UK1AAAAAAAAAACUxEgjuhsT4DtHykvshYVhkO5EtLqHoZOvPVuG4NJ-L2");
+        private static DropboxClient dropbox = new DropboxClient("MgX6Ia7UK1AAAAAAAAAAFnPh0XeroHP7j1VcBBT7JRz6c5HKPCiwdXZ_gkswelJl");
         
         public DropBoxController(ICategoryRepositoryDB categoryRepository, IItemsRepositoryDB itemsRepository, IHostingEnvironment env)
         {
