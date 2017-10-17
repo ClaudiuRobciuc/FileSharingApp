@@ -281,8 +281,46 @@ namespace ConsoleApplication.Controllers
         {
             Items item = itemsRepository.Get(id);
             byte[] fileBytes = System.IO.File.ReadAllBytes(item.Path);
-            string fileName = item.Title+item.Format;
+            //string fileName = item.Title+item.Format;
+            string fileName="";
+            char[] aux = item.Path.ToCharArray();
+            for(int i=aux.Count()-1;i>0;i--)
+            {
+                    if(aux[i]=='/'||aux[i]=='\\')
+                        i=0;
+                    else
+                    {
+                        fileName=aux[i]+fileName;
+                    }
+            } 
             return File(fileBytes,"application/x-msdownload", fileName);
+            //return File(System.IO.File.OpenRead(item.Path), contentType: "application/pdf");
+        }
+
+        public async Task<FileResult> DownloadDB(int id)
+        {
+            DropBoxItems item = itemsRepositoryDB.Get(id);
+            //byte[] fileBytes = System.IO.File.ReadAllBytes(item.Path);
+            //string fileName = item.Title+item.Format;
+            string path = item.Path;
+            
+            string fileName="";
+            char[] aux = path.ToCharArray();
+            for(int i=aux.Count()-1;i>0;i--)
+            {
+                    if(aux[i]=='/'||aux[i]=='\\')
+                        i=0;
+                    else
+                    {
+                        fileName=aux[i]+fileName;
+                    }
+            } 
+            using (var response = await dropbox.Files.DownloadAsync(path))
+            {
+                //Console.WriteLine(await response.GetContentAsStringAsync());
+                
+                return File(await response.GetContentAsByteArrayAsync(),"application/x-msdownload", fileName);
+            }
         }
 
         /* [HttpPost]

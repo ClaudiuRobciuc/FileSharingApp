@@ -22,7 +22,9 @@
                 @foreach (var item in Model) 
                 { 
                     <tr> 
-                        <td>@item.RoleName</td>                                             
+                        <td>@item.RoleName</td> 
+                        @if(!item.RoleName.Equals("Admin"))
+                        {                                            
                         <td>                             
                            
                             <a id="deleteApplicationRoleModal"  asp-action="DeleteRole" asp-route-id="@item.Id" asp-controller="Role" class="btn btn-danger"> 
@@ -30,6 +32,7 @@
                             </a> 
                             
                         </td> 
+                        }
                     </tr> 
                 } 
             </tbody> 

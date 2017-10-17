@@ -102,8 +102,16 @@ div.format-taglist{
     width:23vh; 
     overflow-y:auto;
     overflow-x: hidden;
-    font-size:1.25vh;
+    font-size:1.15vh;
 
+}
+div.tags{
+    height: 8vh;
+    width: 28vh;
+   
+    overflow-y:auto;
+    overflow-x: hidden;
+   
 }
 .limit {
     max-height:3.5vh;
